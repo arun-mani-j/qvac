@@ -31,4 +31,4 @@ model:
 hyperdrive:
   # HyperDrive keys for downloading data files
   espeak_key: "hd://REMOVED-HYPERDRIVE-KEY"
-  # model_key is automatically determined based on model.language (see benchmarks/server/setup.js)
+  # model_key is automatically determined based on model.language (see benchmarks/server/tts-setup.js)
