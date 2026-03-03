@@ -125,4 +125,7 @@ jobs:
       #     vulkaninfo.exe --summary
       - name: Verify vcpkg
         shell: powershell
-        run: echo $env:VCPKG_ROOT
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          .\vcpkg\bootstrap-vcpkg.bat
+          echo $env:VCPKG_ROOT
