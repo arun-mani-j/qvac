@@ -13,7 +13,12 @@ import {
   clearAllLoggingStreams,
   startLogBuffering,
 } from "@/server/bare/registry/logging-stream-registry";
-import { clearAllAddonLoggers, getServerLogger, SDK_LOG_ID } from "@/logging";
+import {
+  clearAllAddonLoggers,
+  getServerLogger,
+  SDK_LOG_ID,
+  SDK_ALL_LOG_ID,
+} from "@/logging";
 import { clearPlugins } from "@/server/plugins";
 import {
   acquireWorkerLock,
@@ -68,6 +73,7 @@ export function initializeWorkerCore(): { hasRPCConfig: boolean } {
   }
 
   startLogBuffering(SDK_LOG_ID);
+  startLogBuffering(SDK_ALL_LOG_ID);
 
   const { hasRPCConfig } = initEnv();
 

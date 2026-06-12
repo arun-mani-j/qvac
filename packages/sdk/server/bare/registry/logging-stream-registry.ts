@@ -12,6 +12,7 @@
  */
 
 import type { LogLevel } from "@qvac/logging";
+import { SDK_ALL_LOG_ID } from "@/logging/namespaces";
 
 const loggingStreams = new Map<
   string,
@@ -107,6 +108,18 @@ export function unregisterAllLoggingStreams(id: string) {
 }
 
 export function sendLogToStreams(
+  id: string,
+  level: LogLevel,
+  namespace: string,
+  message: string,
+) {
+  deliverToStream(id, level, namespace, message);
+  if (id !== SDK_ALL_LOG_ID) {
+    deliverToStream(SDK_ALL_LOG_ID, level, namespace, message);
+  }
+}
+
+function deliverToStream(
   id: string,
   level: LogLevel,
   namespace: string,
