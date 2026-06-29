@@ -126,7 +126,7 @@
       "import": "./electron-forge/index.cjs",
       "default": "./electron-forge/index.cjs"
     },
-    "./worker.mobile.bundle": "./dist/worker.mobile.bundle.js",
+    "./worker.mobile.harness": "./dist/worker.mobile.harness.js",
     "./worker-core": {
       "import": "./dist/server/worker-core.js"
     },

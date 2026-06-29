@@ -2,16 +2,20 @@ import configPlugins from "@expo/config-plugins";
 import type { ExpoConfig } from "expo/config";
 import * as fs from "fs";
 import * as path from "path";
-import { bundleSdk, verifyBundle, hasErrors, formatVerifyBundleResult } from "@/commands";
-import { CONFIG_CANDIDATES } from "@/client/config-loader/resolve-config.node";
+import reactNativeTarget from "bare-stow-target-react-native";
+import { resolveConfigForProject } from "@/client/config-loader/resolve-config.node";
+import { resolvePluginSpecifiers } from "@/commands/bundle/plugins";
+import { generateWorkerStartEntry } from "@/commands/bundle/entry-gen";
+import { runStow } from "@/commands/bundle/stow";
+import { getClientLogger } from "@/logging";
 import { resolveSDKPackageDir } from "@/expo/plugins/resolve-sdk-package-dir";
 import { getProjectRootFromMod } from "@/expo/plugins/get-project-root";
 import { findInAncestorNodeModules } from "@/expo/plugins/find-in-ancestor-node-modules";
-import { BundleVerificationFailedError } from "@/utils/errors-client";
 
 const { withDangerousMod } = configPlugins;
 
-/** Modules to defer from mobile bundles (not available at bundle time) */
+// Resolved by the app at runtime (the harness loads the Worklet), so they are
+// kept out of the stowed worker graph.
 const DEFERRED_MODULES = ["expo-file-system", "react-native-bare-kit"];
 
 const MOBILE_HOSTS = [
@@ -22,118 +26,72 @@ const MOBILE_HOSTS = [
 ];
 
 /**
- * Expo plugin: bundle, verify, then copy the mobile worker bundle.
- *
- * Flow: bundleSdk -> verifyBundle -> copy to `<sdkPackageDir>/dist/worker.mobile.bundle.js`.
- * Uses `qvac.config.*` if present.
+ * Expo plugin: at prebuild, stow the worker for the `react-native` target into
+ * the SDK's `worker.mobile.harness`, which the Expo RPC client loads to boot the
+ * worker in a react-native-bare-kit Worklet. Native addons are linked into the
+ * app by the patched bare-kit linker (all installed addons, unless a future
+ * manifest narrows them). Uses `qvac.config.*` for the plugin set if present.
  */
 function withMobileBundle(config: ExpoConfig): ExpoConfig {
-  async function buildMobileBundle(
+  async function buildMobileHarness(
     config: configPlugins.ExportedConfigWithProps<unknown>,
   ) {
     const projectRoot = getProjectRootFromMod(config);
     const sdkPackage = resolveSDKPackageDir(projectRoot);
-    const outputPath = path.join(
+    const logger = getClientLogger();
+
+    const outputDir = path.join(projectRoot, "qvac");
+    const entryPath = path.join(outputDir, "worker.mobile.entry.mjs");
+    const outPath = path.join(
       sdkPackage.dir,
       "dist",
-      "worker.mobile.bundle.js",
+      "worker.mobile.harness.js",
+    );
+    const importsMapPath = path.join(sdkPackage.dir, "bare-imports.json");
+
+    const { configPath, config: qvacConfig } =
+      await resolveConfigForProject(projectRoot);
+    console.log(
+      configPath
+        ? `🕚 QVAC: Found ${path.basename(configPath)}, stowing worker harness...`
+        : "🕚 QVAC: No config found, stowing worker harness (all plugins)...",
     );
 
-    const configPath = findConfigFile(projectRoot);
-    if (configPath) {
-      console.log(
-        `🕚 QVAC: Found ${path.basename(configPath)}, generating tree-shaken bundle...`,
-      );
-    } else {
-      console.log(
-        "🕚 QVAC: No config found, generating default bundle (all plugins)...",
-      );
-    }
+    const plugins = resolvePluginSpecifiers(qvacConfig, sdkPackage.name, logger);
 
-    const deferredModules = [
-      ...DEFERRED_MODULES,
-      `${sdkPackage.name}/worker.mobile.bundle`,
-    ];
-    await runBundler(
-      projectRoot,
-      sdkPackage.dir,
-      configPath,
-      deferredModules,
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(
+      entryPath,
+      generateWorkerStartEntry(plugins, sdkPackage.name),
+      "utf8",
     );
 
-    const generatedBundle = path.join(projectRoot, "qvac", "worker.bundle.js");
-    await runVerifier(projectRoot, generatedBundle, configPath);
+    patchBareKitLinkers(projectRoot, sdkPackage.dir);
 
-    fs.copyFileSync(generatedBundle, outputPath);
+    await runStow({
+      entryPath,
+      outPath,
+      base: projectRoot,
+      importsMapPath,
+      hosts: MOBILE_HOSTS,
+      target: reactNativeTarget,
+      defer: [...DEFERRED_MODULES],
+      logger,
+    });
 
-    console.log("🫡 QVAC: Mobile bundle generated and verified");
+    console.log("🫡 QVAC: Mobile worker harness generated");
     return config;
   }
 
-  config = withDangerousMod(config, ["android", buildMobileBundle]);
-  config = withDangerousMod(config, ["ios", buildMobileBundle]);
+  config = withDangerousMod(config, ["android", buildMobileHarness]);
+  config = withDangerousMod(config, ["ios", buildMobileHarness]);
   return config;
 }
 
-/** Finds qvac.config.* file in project root */
-function findConfigFile(projectRoot: string): string | null {
-  for (const candidate of CONFIG_CANDIDATES) {
-    const configPath = path.join(projectRoot, candidate);
-    if (fs.existsSync(configPath)) {
-      return configPath;
-    }
-  }
-  return null;
-}
-
-async function runVerifier(
-  projectRoot: string,
-  generatedBundle: string,
-  configPath: string | null,
-) {
-  if (!configPath) {
-    console.log(
-      "⚠️ QVAC: no qvac.config.* found — Bare runtime will be auto-detected " +
-        "from node_modules (bare-runtime, then bare). Add qvac.config.json " +
-        "with `bareRuntimeVersion` to pin ABI checks deterministically.",
-    );
-  }
-
-  const result = await verifyBundle({
-    projectRoot,
-    addonsSource: generatedBundle,
-    hosts: MOBILE_HOSTS,
-    ...(configPath ? { configPath } : {}),
-  });
-
-  if (hasErrors(result)) {
-    throw new BundleVerificationFailedError(
-      generatedBundle,
-      new Error(formatVerifyBundleResult(result)),
-    );
-  }
-}
-
-async function runBundler(
-  projectRoot: string,
-  qvacSdkPath: string,
-  configPath: string | null,
-  deferredModules: string[],
-) {
-  patchBareKitLinkers(projectRoot, qvacSdkPath);
-
-  await bundleSdk({
-    projectRoot,
-    sdkPath: qvacSdkPath,
-    ...(configPath ? { configPath } : {}),
-    hosts: MOBILE_HOSTS,
-    defer: deferredModules,
-    quiet: true,
-  });
-}
-
 /**
- * Patches react-native-bare-kit linkers to use the addons manifest.
+ * Patches react-native-bare-kit linkers to be manifest-aware. With no
+ * `qvac/addons.manifest.json` present the patched linker links all installed
+ * addons, which is the correct default for a stowed worker.
  */
 function patchBareKitLinkers(projectRoot: string, qvacSdkPath: string) {
   const bareKitPath = findInAncestorNodeModules(
@@ -143,8 +101,7 @@ function patchBareKitLinkers(projectRoot: string, qvacSdkPath: string) {
   if (bareKitPath === null) {
     console.warn(
       "⚠️ QVAC: react-native-bare-kit not found in any ancestor node_modules, " +
-        "skipping linker patch. The bundle will link all native addons " +
-        "rather than only those required by your bundle.",
+        "skipping linker patch.",
     );
     return;
   }
