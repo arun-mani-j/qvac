@@ -1,5 +1,10 @@
-export { bundleSdk } from "@/commands/bundle/index";
-export type { BundleSdkOptions, BundleSdkResult } from "@/commands/bundle/index";
+export { bundleSdk, bundleWorkerDesktop } from "@/commands/bundle/index";
+export type {
+  BundleSdkOptions,
+  BundleSdkResult,
+  BundleWorkerDesktopOptions,
+  BundleWorkerDesktopResult,
+} from "@/commands/bundle/index";
 export {
   verifyBundle,
   hasErrors,

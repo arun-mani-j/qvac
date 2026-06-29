@@ -13,8 +13,12 @@ import {
   resolvePluginSpecifiers,
   parseBuiltinSpecifier,
 } from "@/commands/bundle/plugins";
-import { generateWorkerEntry } from "@/commands/bundle/entry-gen";
+import {
+  generateWorkerEntry,
+  generateWorkerStartEntry,
+} from "@/commands/bundle/entry-gen";
 import { runBarePack } from "@/commands/bundle/bare-pack";
+import { runStow } from "@/commands/bundle/stow";
 import { generateAddonsManifest } from "@/commands/bundle/manifest";
 
 const require = createRequire(import.meta.url);
@@ -201,5 +205,89 @@ export async function bundleSdk(
       worker: entryPath,
     },
     manifestPath: manifestResult.manifestPath,
+  };
+}
+
+export interface BundleWorkerDesktopOptions {
+  projectRoot?: string | undefined;
+  configPath?: string | undefined;
+  sdkPath?: string | undefined;
+  hosts?: string[] | undefined;
+  quiet?: boolean | undefined;
+  verbose?: boolean | undefined;
+}
+
+export interface BundleWorkerDesktopResult {
+  bundlePath: string;
+  harnessPath: string;
+  plugins: string[];
+  artifacts: string[];
+}
+
+/**
+ * Bundle a custom desktop (Node) worker via bare-stow: generate a
+ * `start(ipc, ready)` entry with the configured plugins, then stow it for the
+ * `bare-sidecar` target into `qvac/worker.bundle` (+ offloaded addons), which
+ * the Node RPC client picks up. The mobile/Expo `bundleSdk` path is separate.
+ */
+export async function bundleWorkerDesktop(
+  options: BundleWorkerDesktopOptions = {},
+): Promise<BundleWorkerDesktopResult> {
+  const projectRoot = options.projectRoot ?? process.cwd();
+  const outputDir = path.join(projectRoot, "qvac");
+  const entryPath = path.join(outputDir, "worker.start.entry.mjs");
+  // The harness is `require`d by the Node RPC client, so it needs a `.js`
+  // extension; its sibling bundle lands at `qvac/worker.harness.bundle`.
+  const outPath = path.join(outputDir, "worker.harness.js");
+  const bundlePath = path.join(outputDir, "worker.harness.bundle");
+
+  const logger = createCommandLogger(options);
+
+  logger.info("🔧 QVAC SDK Desktop Worker Bundler (bare-stow)\n");
+
+  const { configPath, config } = await resolveConfigForProject(
+    projectRoot,
+    options.configPath,
+  );
+  logger.info(
+    configPath ? `📄 Config: ${path.relative(projectRoot, configPath)}` : "📄 Config: (none)",
+  );
+
+  const sdkPath = resolveSdkPath(projectRoot, options.sdkPath);
+  const sdkName = await resolveSdkName(sdkPath);
+  const importsMapPath = resolveImportsMapPath(sdkPath, sdkName);
+  const pluginSpecifiers = resolvePluginSpecifiers(config, sdkName, logger);
+
+  const hosts =
+    options.hosts && options.hosts.length > 0
+      ? options.hosts
+      : [`${process.platform}-${process.arch}`];
+
+  await fsp.mkdir(outputDir, { recursive: true });
+  await fsp.writeFile(
+    entryPath,
+    generateWorkerStartEntry(pluginSpecifiers, sdkName),
+    "utf8",
+  );
+
+  logger.info("\n🔨 Bundling with bare-stow...");
+  const artifacts = await runStow({
+    entryPath,
+    outPath,
+    base: projectRoot,
+    importsMapPath,
+    hosts,
+    logger,
+  });
+
+  logger.info(
+    `\n✅ Desktop bundle: ${path.relative(projectRoot, bundlePath)}\n`,
+  );
+
+  return {
+    bundlePath,
+    harnessPath: outPath,
+    plugins: pluginSpecifiers,
+    artifacts,
   };
 }
