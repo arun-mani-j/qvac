@@ -3,13 +3,13 @@ import { isBareKit } from "which-runtime";
 import { z } from "zod";
 
 const envSchema = z.object({
-  QVAC_IPC_SOCKET_PATH: z.string().optional(),
   HOME_DIR: z.string(),
 });
 
 type WorkerEnv = z.infer<typeof envSchema>;
 
 let validatedEnv: WorkerEnv | null = null;
+let hasRPCConfig = false;
 
 /**
  * Initialize the worker environment. Call once at worker startup.
@@ -22,7 +22,7 @@ export function initEnv(): { hasRPCConfig: boolean } {
   let envConfig: Record<string, string | undefined> = {
     HOME_DIR: defaultHomeDir,
   };
-  let hasRPCConfig = false;
+  hasRPCConfig = false;
 
   if (isBareKit && Bare.argv[0]) {
     envConfig["HOME_DIR"] = Bare.argv[0];
@@ -65,4 +65,11 @@ export function getValidatedEnv() {
     initEnv();
   }
   return validatedEnv!;
+}
+
+/**
+ * Whether worker arguments carried an RPC config (mobile passes a JSON arg).
+ */
+export function getHasRPCConfig() {
+  return hasRPCConfig;
 }

@@ -1,11 +1,12 @@
 import os from "bare-os";
 import Signal from "bare-signals";
+import type { Duplex, DuplexEvents } from "bare-stream";
 import {
   createBareKitRPCServer,
-  createIPCClient,
+  createRPCServerOverStream,
 } from "@/server/rpc/create-server";
 import { destroySwarm } from "@/server/bare/hyperswarm";
-import { initEnv, getValidatedEnv } from "@/server/env";
+import { initEnv, getHasRPCConfig } from "@/server/env";
 import { closeAllRagInstances } from "@/server/bare/rag-hyperdb";
 import { cleanupDownloads } from "@/server/rpc/handlers/load-model/download-manager";
 import { unloadAllModels } from "@/server/bare/registry/model-registry";
@@ -70,8 +71,7 @@ function scheduleForceExit(): void {
 
 export function initializeWorkerCore(): { hasRPCConfig: boolean } {
   if (coreInitialized) {
-    const validatedEnv = getValidatedEnv();
-    return { hasRPCConfig: !!validatedEnv.QVAC_IPC_SOCKET_PATH };
+    return { hasRPCConfig: getHasRPCConfig() };
   }
 
   startLogBuffering(SDK_LOG_ID);
@@ -98,21 +98,8 @@ export function ensureRPCSetup() {
   }
 
   try {
-    const validatedEnv = getValidatedEnv();
-    const ipcSocketPath = validatedEnv.QVAC_IPC_SOCKET_PATH;
-
-    if (ipcSocketPath) {
-      logger.info(
-        `Running in desktop mode, connecting to IPC socket: ${ipcSocketPath}`,
-      );
-      const rpc = createIPCClient(ipcSocketPath, {
-        onDisconnect: () => void shutdownBareDirectWorker("ipc-disconnect"),
-      });
-      logger.debug("Desktop IPC client created?", !!rpc);
-    } else {
-      logger.info("Running in BareKit IPC mode");
-      createBareKitRPCServer();
-    }
+    logger.info("Running in BareKit IPC mode");
+    createBareKitRPCServer();
 
     logger.info("Bare worker started and listening for RPC requests");
     logger.debug("Working directory:", os.cwd());
@@ -128,6 +115,31 @@ export function ensureRPCSetup() {
     logger.error("Worker error:", error);
     Bare.exit(1);
   }
+}
+
+/**
+ * Worker entry contract for the bare-stow harness: set up RPC over the
+ * host-provided IPC stream, signal readiness, and return the cleanup the
+ * harness runs on terminate. Unlike `ensureRPCSetup` (BareKit IPC, mobile), the
+ * stream is supplied by the harness.
+ */
+export function startWorker(ipc: Duplex<DuplexEvents>, ready: () => void) {
+  initializeWorkerCore();
+
+  createRPCServerOverStream(ipc, {
+    onDisconnect: () => void shutdownBareDirectWorker("ipc-disconnect"),
+  });
+  rpcInitialized = true;
+
+  logger.info("Bare worker started and listening for RPC requests");
+  stopLogBufferingWithTimeout(SDK_ALL_LOG_ID);
+
+  ready();
+
+  return async function stop() {
+    await runCleanup();
+    releaseWorkerLock();
+  };
 }
 
 export function isCoreInitialized(): boolean {

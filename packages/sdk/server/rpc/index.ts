@@ -1,2 +1,2 @@
-export { createBareKitRPCServer, createIPCClient } from "./create-server";
+export { createBareKitRPCServer } from "./create-server";
 export { handleRequest } from "./handle-request";

@@ -1,8 +1,13 @@
 /**
  * Default worker entry point that registers ALL built-in plugins.
+ *
+ * Exported as the bare-stow harness entry: the generated shim imports this
+ * default export and calls `start(ipc, ready)`, where `ipc` is the host IPC
+ * stream and the returned value is the cleanup run on terminate.
  */
 
-import { initializeWorkerCore, ensureRPCSetup } from "@/server/worker-core";
+import type { Duplex, DuplexEvents } from "bare-stream";
+import { initializeWorkerCore, startWorker } from "@/server/worker-core";
 import { registerPlugins } from "@/server/plugins";
 import { getServerLogger } from "@/logging";
 import {
@@ -19,35 +24,24 @@ import {
   classificationPlugin,
 } from "@/server/bare/plugins";
 
-const { hasRPCConfig } = initializeWorkerCore();
+export default function start(ipc: Duplex<DuplexEvents>, ready: () => void) {
+  initializeWorkerCore();
 
-const logger = getServerLogger();
+  registerPlugins([
+    llmPlugin,
+    embeddingsPlugin,
+    whisperPlugin,
+    bciPlugin,
+    parakeetPlugin,
+    nmtPlugin,
+    ttsPlugin,
+    ocrPlugin,
+    diffusionPlugin,
+    vlaPlugin,
+    classificationPlugin,
+  ]);
 
-logger.info("🐻 Hello from Bare");
+  getServerLogger().info("🐻 Hello from Bare");
 
-registerPlugins([
-  llmPlugin,
-  embeddingsPlugin,
-  whisperPlugin,
-  bciPlugin,
-  parakeetPlugin,
-  nmtPlugin,
-  ttsPlugin,
-  ocrPlugin,
-  diffusionPlugin,
-  vlaPlugin,
-  classificationPlugin,
-]);
-
-logger.info(
-  hasRPCConfig
-    ? "Parsed RPC configuration from arguments"
-    : "Using default configuration (direct mode)",
-);
-
-// Auto-setup RPC only if we successfully parsed RPC configuration
-if (hasRPCConfig) {
-  ensureRPCSetup();
-} else {
-  logger.info("Running in direct mode - RPC setup will be lazy");
+  return startWorker(ipc, ready);
 }
