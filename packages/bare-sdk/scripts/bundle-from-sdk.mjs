@@ -2,7 +2,9 @@
 /**
  * Bundle @qvac/bare-sdk's dist/_sdk/ from sibling @qvac/sdk's compiled
  * dist/. Excludes server/worker.js (consumers assemble plugins
- * explicitly) and pear/pre.js (Pear apps author their own entry).
+ * explicitly), pear/pre.js (Pear apps author their own entry), and
+ * worker/ (the stowed default sidecar worker bundle + its offloaded addon
+ * prebuilds — bare-sdk is slim and ships no default worker).
  *
  * NOTICE is generated and committed at release time via
  * `/qv-sdk-bare-sdk-sync` (which invokes `qv-notice-generate bare-sdk`).
@@ -41,11 +43,18 @@ const EXCLUDE_RELATIVE_PATHS = new Set([
 
 const EXCLUDE_SUFFIXES = [".js.map", ".d.ts.map"];
 
+// Whole subtrees to drop (the stowed default worker bundle and its offloaded
+// addon prebuilds — not part of the slim bare-sdk).
+const EXCLUDE_PREFIXES = ["worker/"];
+
 let copiedFiles = 0;
 let skippedFiles = 0;
 
 function shouldExclude(relPath) {
   if (EXCLUDE_RELATIVE_PATHS.has(relPath)) return true;
+  for (const prefix of EXCLUDE_PREFIXES) {
+    if (relPath.startsWith(prefix)) return true;
+  }
   for (const suffix of EXCLUDE_SUFFIXES) {
     if (relPath.endsWith(suffix)) return true;
   }

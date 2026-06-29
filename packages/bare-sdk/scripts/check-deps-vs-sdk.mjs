@@ -23,7 +23,20 @@ const DEP_FIELDS = ["dependencies", "optionalDependencies", "peerDependencies"];
 //     spawns `bare`); bare-sdk pins `#rpc` to bare-client, so it's unused.
 //     Dropping it also avoids pulling its ~80MB of per-platform bare prebuilds.
 //   - bare-pack: only used by the Node-side `bundle` command, lazily resolved.
-const SDK_ONLY_PACKAGES = new Set(["bare-runtime", "bare-pack"]);
+//   - bare-stow + bare-stow-target-*: drive harness generation for the Node,
+//     Electron, Expo and Pear hosts. bare-sdk consumers assemble their own
+//     worker, so these are reached only from the excluded Node-side tooling.
+//     (A dedicated bare-stow-target-bare will wire the Bare host later.)
+//   - bare-sidecar: imported only inside the stowed worker harness, which
+//     bare-sdk excludes (see bundle-from-sdk.mjs).
+const SDK_ONLY_PACKAGES = new Set([
+  "bare-runtime",
+  "bare-pack",
+  "bare-sidecar",
+  "bare-stow",
+  "bare-stow-target-pear-runtime",
+  "bare-stow-target-react-native",
+]);
 
 const errors = [];
 
