@@ -3,15 +3,19 @@ import { z } from 'zod'
 // ============== Delete cache ==============
 
 export const deleteCacheRequestSchema = z.union([
-  z.object({
-    type: z.literal('deleteCache'),
-    all: z.literal(true)
-  }),
-  z.object({
-    type: z.literal('deleteCache'),
-    kvCacheKey: z.string(),
-    modelId: z.string().optional()
-  })
+  z
+    .object({
+      type: z.literal('deleteCache'),
+      all: z.literal(true)
+    })
+    .meta({ title: 'DeleteCacheAllRequest' }),
+  z
+    .object({
+      type: z.literal('deleteCache'),
+      kvCacheKey: z.string(),
+      modelId: z.string().optional()
+    })
+    .meta({ title: 'DeleteCacheKvEntryRequest' })
 ])
 
 export const deleteCacheResponseSchema = z.object({
