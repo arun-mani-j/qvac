@@ -1,9 +1,9 @@
 import { fileURLToPath } from 'node:url'
 import { z } from 'zod'
 import prettier from 'prettier'
-import { requestSchema, responseSchema } from '@/schemas/common'
-import { methodShapes, type MethodName } from '@/server/rpc/method-shapes'
-import { constantsRegistry } from '@/schemas/constants-registry'
+import { requestSchema, responseSchema } from '@qvac/core/surface'
+import { methodShapes, type MethodName } from './method-shapes'
+import { constantsRegistry } from './constants-registry'
 import { buildModelsRegistry } from './build-models-registry'
 
 export const contractDir = new URL('../../contract/', import.meta.url)
