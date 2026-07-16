@@ -1,6 +1,6 @@
-import { ModelAlreadyRegisteredError, ModelNotFoundError, ModelIsDelegatedError } from '../errors'
-import type { CanonicalModelType } from '../schemas'
-import { getEngineLogger } from '../logging'
+import { ModelAlreadyRegisteredError, ModelNotFoundError, ModelIsDelegatedError } from '../errors/index.ts'
+import type { CanonicalModelType } from '../schemas/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
 import type BaseInference from '@qvac/infer-base'
 
 const logger = getEngineLogger()

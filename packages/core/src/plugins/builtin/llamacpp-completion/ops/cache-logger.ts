@@ -1,4 +1,4 @@
-import { getEngineLogger } from '../../../../logging'
+import { getEngineLogger } from '../../../../logging/index.ts'
 
 const logger = getEngineLogger()
 

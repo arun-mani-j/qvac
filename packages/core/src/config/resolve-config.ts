@@ -7,9 +7,9 @@ import path from 'bare-path'
 import os from 'bare-os'
 import env from 'bare-env'
 import { pathToFileURL } from 'bare-url'
-import { validateConfig, type QvacConfig } from './config-utils'
-import { ConfigFileInvalidError, ConfigFileParseFailedError } from '../errors'
-import { getAppLogger } from '../logging'
+import { validateConfig, type QvacConfig } from './config-utils.ts'
+import { ConfigFileInvalidError, ConfigFileParseFailedError } from '../errors/index.ts'
+import { getAppLogger } from '../logging/index.ts'
 
 const SUPPORTED_CONFIG_FILE_EXTS = ['.js', '.json']
 

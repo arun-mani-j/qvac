@@ -1,9 +1,9 @@
 import { AbortController, type AbortSignal } from 'bare-abort-controller'
-import { createDisposableScope, type DisposableScope } from './disposable-scope'
-import type { RequestContext, RequestKind, RequestState } from './request-context'
-import { RequestIdConflictError, RequestRejectedByPolicyError } from '../errors'
-import { getEngineLogger } from '../logging'
-import type { Logger } from '../logging/types'
+import { createDisposableScope, type DisposableScope } from './disposable-scope.ts'
+import type { RequestContext, RequestKind, RequestState } from './request-context.ts'
+import { RequestIdConflictError, RequestRejectedByPolicyError } from '../errors/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import type { Logger } from '../logging/types.ts'
 
 /**
  * Outcome the caller declares when terminating a request through

@@ -1,6 +1,6 @@
-import { handleRequest } from '../handle-request'
+import { handleRequest } from '../handle-request.ts'
 import type RPC from 'bare-rpc'
-import { getEngineLogger } from '../../logging'
+import { getEngineLogger } from '../../logging/index.ts'
 
 const logger = getEngineLogger()
 

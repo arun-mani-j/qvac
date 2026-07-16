@@ -1,17 +1,17 @@
-import { destroySwarm } from '../p2p/swarm'
-import { initEnv } from './env'
-import { closeAllRagInstances } from '../rag'
-import { cleanupDownloads } from '../handlers/load-model/download-manager'
-import { unloadAllModels } from './model-registry'
-import { closeRegistryClient } from './registry-client'
+import { destroySwarm } from '../p2p/swarm.ts'
+import { initEnv } from './env.ts'
+import { closeAllRagInstances } from '../rag/index.ts'
+import { cleanupDownloads } from '../handlers/load-model/download-manager.ts'
+import { unloadAllModels } from './model-registry.ts'
+import { closeRegistryClient } from './registry-client.ts'
 import {
   clearAllLoggingStreams,
   startLogBuffering,
   stopLogBufferingWithTimeout
-} from './logging-stream-registry'
-import { clearAllAddonLoggers, getEngineLogger, LOG_ID, ALL_LOG_ID } from '../logging'
-import { clearPlugins } from '../plugins'
-import { acquireCacheLock, releaseCacheLock } from './cache-lock'
+} from './logging-stream-registry.ts'
+import { clearAllAddonLoggers, getEngineLogger, LOG_ID, ALL_LOG_ID } from '../logging/index.ts'
+import { clearPlugins } from '../plugins/index.ts'
+import { acquireCacheLock, releaseCacheLock } from './cache-lock.ts'
 
 // The host application owns the Bare runtime lifecycle: this module sets up the
 // shared engine state and tears it back down on `close()`, but never claims

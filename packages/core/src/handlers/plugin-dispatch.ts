@@ -1,15 +1,15 @@
-import { getModelEntry } from '../runtime/model-registry'
-import { getAllPlugins, getPlugin } from '../plugins'
+import { getModelEntry } from '../runtime/model-registry.ts'
+import { getAllPlugins, getPlugin } from '../plugins/index.ts'
 import type Buffer from 'bare-buffer'
-import type { PluginHandlerDefinition } from '../schemas/plugin'
-import { profileReplyHandler, profileStreamHandler } from '../profiling'
+import type { PluginHandlerDefinition } from '../schemas/plugin.ts'
+import { profileReplyHandler, profileStreamHandler } from '../profiling/index.ts'
 import {
   ModelNotFoundError,
   ModelIsDelegatedError,
   ModelOperationNotSupportedError,
   PluginNotFoundError,
   PluginHandlerTypeMismatchError
-} from '../errors'
+} from '../errors/index.ts'
 
 interface DispatchResult<TResponse> {
   result: Promise<TResponse> | AsyncGenerator<TResponse>

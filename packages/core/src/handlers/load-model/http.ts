@@ -1,11 +1,11 @@
-import type { ModelProgressUpdate, ShardUrl } from '../../schemas'
+import type { ModelProgressUpdate, ShardUrl } from '../../schemas/index.ts'
 import fs, { promises as fsPromises } from 'bare-fs'
 import path from 'bare-path'
 import { Readable, type Writable } from 'bare-stream'
 import fetch, { Headers } from 'bare-fetch'
 import { AbortController, type AbortSignal } from 'bare-abort-controller'
 import Buffer from 'bare-buffer'
-import { withTimeout } from '../../utils/withTimeout'
+import { withTimeout } from '../../utils/withTimeout.ts'
 import {
   getModelsCacheDir,
   getShardedModelCacheDir,
@@ -21,23 +21,23 @@ import {
   checkAllShardsExist,
   generateShardFilenames,
   hasValidGGUFHeader
-} from '../../utils'
-import { getConfig } from '../../runtime/state'
-import { getLifecycleState, onResume } from '../../runtime/runtime-lifecycle'
+} from '../../utils/index.ts'
+import { getConfig } from '../../runtime/state.ts'
+import { getLifecycleState, onResume } from '../../runtime/runtime-lifecycle.ts'
 import {
   createHttpDownloadKey,
   startOrJoinDownload,
   applyJoinedDownloadStats
-} from './download-manager'
+} from './download-manager.ts'
 import {
   DownloadCancelledError,
   HTTPError,
   NoResponseBodyError,
   PartialDownloadOfflineError,
   ResponseBodyNotReadableError
-} from '../../errors'
-import { getEngineLogger } from '../../logging'
-import type { DownloadHooks } from './types'
+} from '../../errors/index.ts'
+import { getEngineLogger } from '../../logging/index.ts'
+import type { DownloadHooks } from './types.ts'
 
 const logger = getEngineLogger()
 

@@ -5,22 +5,22 @@ import {
   type RuntimeContext,
   type ProfilingRequestMeta,
   PROFILING_KEY
-} from '../schemas'
+} from '../schemas/index.ts'
 import type RPC from 'bare-rpc'
-import { sendErrorResponse, sendStreamErrorResponse } from './error-handlers'
-import { PluginHandlerTypeMismatchError } from '../errors'
-import { setConfig, setRuntimeContext } from '../runtime/state'
-import { type ServerProfiler } from '../profiling'
-import { isTerminalChunk } from './rpc-utils'
-import { createProgressThrottle } from './progress-throttle'
-import { handlerSupportsProgress, selectHandler } from '../selection'
+import { sendErrorResponse, sendStreamErrorResponse } from './error-handlers.ts'
+import { PluginHandlerTypeMismatchError } from '../errors/index.ts'
+import { setConfig, setRuntimeContext } from '../runtime/state.ts'
+import { type ServerProfiler } from '../profiling/index.ts'
+import { isTerminalChunk } from './rpc-utils.ts'
+import { createProgressThrottle } from './progress-throttle.ts'
+import { handlerSupportsProgress, selectHandler } from '../selection.ts'
 import type {
   HandlerEntry,
   ReplyHandler,
   StreamHandler,
   ProgressHandler,
   DuplexStreamHandler
-} from '../handlers/types'
+} from '../handlers/types.ts'
 
 function getProfilingMetaFromRequest(request: Request): ProfilingRequestMeta | undefined {
   if (PROFILING_KEY in request) {
@@ -248,7 +248,7 @@ export async function handleShutdown(req: RPC.IncomingRequest): Promise<void> {
   try {
     // Lazy import to avoid an import cycle with `./lifecycle`. By the time
     // this runs, all modules are loaded.
-    const { cleanupForTerminate } = await import('../runtime/lifecycle')
+    const { cleanupForTerminate } = await import('../runtime/lifecycle.ts')
     await cleanupForTerminate()
     req.reply(JSON.stringify({ success: true }), 'utf-8')
   } catch (error) {

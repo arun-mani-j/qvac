@@ -1,19 +1,19 @@
-import { getModel } from '../../runtime/model-registry'
+import { getModel } from '../../runtime/model-registry.ts'
 import {
   type BciStreamOpts,
   type BciTranscribeParams,
   type NeuralInput,
   type TranscribeSegment,
   type TranscribeStats
-} from '../../schemas'
+} from '../../schemas/index.ts'
 import Buffer from 'bare-buffer'
-import { getEngineLogger } from '../../logging'
-import { TranscriptionFailedError } from '../../errors'
-import { nowMs } from '../../profiling'
-import { buildStreamResult } from '../../profiling/model-execution'
-import { toTranscribeSegment, type WhisperAddonSegment } from '../../utils/transcribe-metadata'
-import { getRequestRegistry, withRequestContext } from '../../runtime'
-import { generateRandomRequestId } from '../../runtime/request-id'
+import { getEngineLogger } from '../../logging/index.ts'
+import { TranscriptionFailedError } from '../../errors/index.ts'
+import { nowMs } from '../../profiling/index.ts'
+import { buildStreamResult } from '../../profiling/model-execution.ts'
+import { toTranscribeSegment, type WhisperAddonSegment } from '../../utils/transcribe-metadata.ts'
+import { getRequestRegistry, withRequestContext } from '../../runtime/index.ts'
+import { generateRandomRequestId } from '../../runtime/request-id.ts'
 
 interface BciAddonResponse {
   iterate(): AsyncIterable<WhisperAddonSegment[] | WhisperAddonSegment>

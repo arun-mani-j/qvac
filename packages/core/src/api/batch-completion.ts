@@ -1,5 +1,5 @@
-import { stream as streamRpc } from '../dispatch'
-import { getAppLogger } from '../logging'
+import { stream as streamRpc } from '../dispatch.ts'
+import { getAppLogger } from '../logging/index.ts'
 import {
   batchCompletionStreamResponseSchema,
   type BatchCompletionClientParams,
@@ -13,12 +13,12 @@ import {
   type McpClientInput,
   type RPCOptions,
   type Tool
-} from '../schemas'
-import { buildFinalFromEvents } from '../utils/aggregate-events'
-import { CompletionFailedError, InferenceCancelledError } from '../errors'
-import { getMcpToolsWithHandlers } from '../utils/mcp-adapter'
-import { validateTools, type ToolHandlerMap, type ToolInput } from '../utils/tool-helpers'
-import { generateRequestId } from '../runtime/request-id'
+} from '../schemas/index.ts'
+import { buildFinalFromEvents } from '../utils/aggregate-events.ts'
+import { CompletionFailedError, InferenceCancelledError } from '../errors/index.ts'
+import { getMcpToolsWithHandlers } from '../utils/mcp-adapter.ts'
+import { validateTools, type ToolHandlerMap, type ToolInput } from '../utils/tool-helpers.ts'
+import { generateRequestId } from '../runtime/request-id.ts'
 
 const logger = getAppLogger()
 

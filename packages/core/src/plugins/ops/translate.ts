@@ -1,4 +1,4 @@
-import { getModelEntry } from '../../runtime/model-registry'
+import { getModelEntry } from '../../runtime/model-registry.ts'
 import {
   translateServerParamsSchema,
   normalizeModelType,
@@ -6,17 +6,17 @@ import {
   type TranslateParams,
   type TranslationStats,
   AFRICAN_LANGUAGES_MAP
-} from '../../schemas'
+} from '../../schemas/index.ts'
 import type TranslationNmtcpp from '@qvac/translation-nmtcpp'
 import type { GenerationParams, RunOptions } from '@qvac/llm-llamacpp'
 import { getLangName } from '@qvac/langdetect-text'
-import { nowMs } from '../../profiling'
-import { buildStreamResult } from '../../profiling/model-execution'
-import type { NmtResponse, LlmResponse } from '../../utils/addon-responses'
-import { ModelIsDelegatedError, ModelNotFoundError, ModelTypeMismatchError } from '../../errors'
-import { getRequestRegistry, withRequestContext } from '../../runtime'
-import { generateRandomRequestId } from '../../runtime/request-id'
-import { getEngineLogger } from '../../logging'
+import { nowMs } from '../../profiling/index.ts'
+import { buildStreamResult } from '../../profiling/model-execution.ts'
+import type { NmtResponse, LlmResponse } from '../../utils/addon-responses.ts'
+import { ModelIsDelegatedError, ModelNotFoundError, ModelTypeMismatchError } from '../../errors/index.ts'
+import { getRequestRegistry, withRequestContext } from '../../runtime/index.ts'
+import { generateRandomRequestId } from '../../runtime/request-id.ts'
+import { getEngineLogger } from '../../logging/index.ts'
 
 export function getLanguage(code: string | undefined): string {
   if (!code) return ''

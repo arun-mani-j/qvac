@@ -24,12 +24,12 @@ import {
   type ResolveContext,
   type ResolveResult,
   type SdcppConfig
-} from '../../../schemas'
-import { createStreamLogger, registerAddonLogger } from '../../../logging'
-import { ModelLoadFailedError } from '../../../errors'
-import { diffusion } from './ops/diffusion'
-import { video } from './ops/video'
-import { upscale } from './ops/upscale'
+} from '../../../schemas/index.ts'
+import { createStreamLogger, registerAddonLogger } from '../../../logging/index.ts'
+import { ModelLoadFailedError } from '../../../errors/index.ts'
+import { diffusion } from './ops/diffusion.ts'
+import { video } from './ops/video.ts'
+import { upscale } from './ops/upscale.ts'
 
 type DiffusionArtifactKey =
   | 'clipLModelPath'

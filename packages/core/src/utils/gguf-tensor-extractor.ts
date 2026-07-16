@@ -1,8 +1,8 @@
 import { promises as fsPromises, createReadStream } from 'bare-fs'
 import Buffer from 'bare-buffer'
-import { getEngineLogger } from '../logging'
-import { ModelLoadFailedError } from '../errors'
-import { validateAndJoinPath } from './path-security'
+import { getEngineLogger } from '../logging/index.ts'
+import { ModelLoadFailedError } from '../errors/index.ts'
+import { validateAndJoinPath } from './path-security.ts'
 
 const logger = getEngineLogger()
 

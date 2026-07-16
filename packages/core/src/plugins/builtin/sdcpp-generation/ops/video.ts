@@ -1,16 +1,16 @@
 import { VideoStableDiffusion } from '@qvac/diffusion-cpp'
 import Buffer from 'bare-buffer'
-import { getEngineLogger } from '../../../../logging'
-import { getModel, getModelEntry } from '../../../../runtime/model-registry'
-import { getRequestRegistry, withRequestContext } from '../../../../runtime'
-import { generateRandomRequestId } from '../../../../runtime/request-id'
-import { ModelOperationNotSupportedError } from '../../../../errors'
-import { ModelType } from '../../../../schemas'
+import { getEngineLogger } from '../../../../logging/index.ts'
+import { getModel, getModelEntry } from '../../../../runtime/model-registry.ts'
+import { getRequestRegistry, withRequestContext } from '../../../../runtime/index.ts'
+import { generateRandomRequestId } from '../../../../runtime/request-id.ts'
+import { ModelOperationNotSupportedError } from '../../../../errors/index.ts'
+import { ModelType } from '../../../../schemas/index.ts'
 import type {
   VideoRequest,
   VideoStreamResponse,
   VideoStats
-} from '../../../../schemas/sdcpp-config'
+} from '../../../../schemas/sdcpp-config.ts'
 
 interface ResponseWithStats {
   stats?: VideoStats

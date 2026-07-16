@@ -1,9 +1,9 @@
-import type { CancelRequest, CancelResponse } from '../schemas/cancel'
-import { getEngineLogger } from '../logging'
-import { getModelEntry } from '../runtime/model-registry'
-import { getRPC } from './delegate-client'
-import { send, type DelegateOptions } from './delegate-transport'
-import type { DelegatedHandlerOptions } from '../profiling'
+import type { CancelRequest, CancelResponse } from '../schemas/cancel.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import { getModelEntry } from '../runtime/model-registry.ts'
+import { getRPC } from './delegate-client.ts'
+import { send, type DelegateOptions } from './delegate-transport.ts'
+import type { DelegatedHandlerOptions } from '../profiling/index.ts'
 
 const logger = getEngineLogger()
 

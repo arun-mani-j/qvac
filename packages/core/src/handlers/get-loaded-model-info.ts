@@ -2,11 +2,11 @@ import type {
   GetLoadedModelInfoRequest,
   GetLoadedModelInfoResponse,
   LoadedModelInfo
-} from '../schemas'
-import { getModelEntry } from '../runtime/model-registry'
-import { getPlugin } from '../plugins/registry'
-import { ModelNotFoundError } from '../errors'
-import { getEngineLogger } from '../logging'
+} from '../schemas/index.ts'
+import { getModelEntry } from '../runtime/model-registry.ts'
+import { getPlugin } from '../plugins/registry.ts'
+import { ModelNotFoundError } from '../errors/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
 
 const logger = getEngineLogger()
 

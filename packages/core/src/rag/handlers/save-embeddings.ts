@@ -1,5 +1,5 @@
-import { getRagDbAdapter } from '../rag-workspace-manager'
-import { ragSaveEmbeddingsParamsSchema, type RagSaveEmbeddingsParams } from '../../schemas'
+import { getRagDbAdapter } from '../rag-workspace-manager.ts'
+import { ragSaveEmbeddingsParamsSchema, type RagSaveEmbeddingsParams } from '../../schemas/index.ts'
 import type { AbortSignal } from 'bare-abort-controller'
 import type { SaveEmbeddingsOpts, SaveStage } from '@qvac/rag'
 

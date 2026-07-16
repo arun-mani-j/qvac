@@ -1,20 +1,20 @@
-export { chunk } from './handlers/chunk'
-export { ingest } from './handlers/ingest'
-export { saveEmbeddings } from './handlers/save-embeddings'
-export { search } from './handlers/search'
-export { deleteEmbeddings } from './handlers/delete-embeddings'
-export { reindex } from './handlers/reindex'
-export { listWorkspaces } from './handlers/list-workspaces'
-export { closeWorkspace } from './handlers/close-workspace'
-export { deleteWorkspace } from './handlers/delete-workspace'
+export { chunk } from './handlers/chunk.ts'
+export { ingest } from './handlers/ingest.ts'
+export { saveEmbeddings } from './handlers/save-embeddings.ts'
+export { search } from './handlers/search.ts'
+export { deleteEmbeddings } from './handlers/delete-embeddings.ts'
+export { reindex } from './handlers/reindex.ts'
+export { listWorkspaces } from './handlers/list-workspaces.ts'
+export { closeWorkspace } from './handlers/close-workspace.ts'
+export { deleteWorkspace } from './handlers/delete-workspace.ts'
 export {
   closeAllRagInstances,
   DEFAULT_WORKSPACE,
   type RagWorkspaceInfo
-} from './rag-workspace-manager'
+} from './rag-workspace-manager.ts'
 export {
   getActiveRagRequest,
   setActiveRagRequest,
   clearActiveRagRequest,
   getWorkspaceKey
-} from './rag-operation-manager'
+} from './rag-operation-manager.ts'

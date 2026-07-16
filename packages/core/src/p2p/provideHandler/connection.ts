@@ -2,9 +2,9 @@ import RPC from 'bare-rpc'
 import type { Duplex } from 'bare-stream'
 import type { Connection } from 'hyperswarm'
 import type Hyperswarm from 'hyperswarm'
-import { createRpcProxy } from './proxy'
-import { hasActiveProviders } from '../swarm'
-import { getEngineLogger } from '../../logging'
+import { createRpcProxy } from './proxy.ts'
+import { hasActiveProviders } from '../swarm.ts'
+import { getEngineLogger } from '../../logging/index.ts'
 
 const logger = getEngineLogger()
 

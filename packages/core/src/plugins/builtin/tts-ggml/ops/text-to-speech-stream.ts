@@ -1,14 +1,14 @@
-import { getModel } from '../../../../runtime/model-registry'
+import { getModel } from '../../../../runtime/model-registry.ts'
 import {
   textToSpeechStreamRequestSchema,
   type TextToSpeechStreamRequest,
   type TtsStats
-} from '../../../../schemas'
+} from '../../../../schemas/index.ts'
 import Buffer from 'bare-buffer'
-import { nowMs } from '../../../../profiling'
-import { buildStreamResult, hasDefinedValues } from '../../../../profiling/model-execution'
-import { TextToSpeechStreamFailedError } from '../../../../errors'
-import { type TtsStreamChunk, type TtsOpYield, collectTtsStats } from '../../../../utils/tts-stats'
+import { nowMs } from '../../../../profiling/index.ts'
+import { buildStreamResult, hasDefinedValues } from '../../../../profiling/model-execution.ts'
+import { TextToSpeechStreamFailedError } from '../../../../errors/index.ts'
+import { type TtsStreamChunk, type TtsOpYield, collectTtsStats } from '../../../../utils/tts-stats.ts'
 
 type RunStreamingModel = {
   runStreaming: (

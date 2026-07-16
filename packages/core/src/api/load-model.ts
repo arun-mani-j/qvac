@@ -1,5 +1,5 @@
-import { send, stream } from '../dispatch'
-import { startLoggingStreamForModel } from './logging-stream-registry'
+import { send, stream } from '../dispatch.ts'
+import { startLoggingStreamForModel } from './logging-stream-registry.ts'
 import {
   type LoadModelOptions,
   type LoadCustomPluginModelOptions,
@@ -17,18 +17,18 @@ import {
   normalizeModelType,
   inferModelTypeFromModelSrc,
   ModelType
-} from '../schemas'
+} from '../schemas/index.ts'
 import {
   ModelLoadFailedError,
   ModelTypeRequiredError,
   StreamEndedError,
   InvalidResponseError
-} from '../errors'
-import { assertModelSrcMatchesModelType } from '../utils/load-model-validation'
-import { parseClientInput } from './parse-input'
-import { getAppLogger } from '../logging'
-import { decoratePromise } from '../utils/decorate-promise'
-import { generateRequestId } from '../runtime/request-id'
+} from '../errors/index.ts'
+import { assertModelSrcMatchesModelType } from '../utils/load-model-validation.ts'
+import { parseClientInput } from './parse-input.ts'
+import { getAppLogger } from '../logging/index.ts'
+import { decoratePromise } from '../utils/decorate-promise.ts'
+import { generateRequestId } from '../runtime/request-id.ts'
 
 const logger = getAppLogger()
 
@@ -151,7 +151,7 @@ export function loadModel<S extends ModelDescriptor>(
  * });
  *
  * // Load with automatic logging - logs from the model will be forwarded to your logger
- * import { getLogger } from "../logging";
+ * import { getLogger } from "../logging/index.ts";
  * const logger = getLogger("my-app");
  *
  * const modelId = await loadModel({

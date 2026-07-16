@@ -20,15 +20,15 @@ import {
   type CreateModelParams,
   type PluginModelResult,
   type ResolveResult
-} from '../../../schemas'
-import { createStreamLogger, registerAddonLogger } from '../../../logging'
+} from '../../../schemas/index.ts'
+import { createStreamLogger, registerAddonLogger } from '../../../logging/index.ts'
 import {
   ModelLoadFailedError,
   TranscriptionFailedError,
   LegacyParakeetModelDeprecatedError
-} from '../../../errors'
-import { transcribe, transcribeStream } from '../../ops/transcribe'
-import { attachModelExecutionMs } from '../../../profiling/model-execution'
+} from '../../../errors/index.ts'
+import { transcribe, transcribeStream } from '../../ops/transcribe.ts'
+import { attachModelExecutionMs } from '../../../profiling/model-execution.ts'
 
 function resolveParakeetConfig(cfg: ParakeetConfig): Promise<ResolveResult<ParakeetConfig>> {
   const cfgRecord = cfg as unknown as Record<string, unknown>

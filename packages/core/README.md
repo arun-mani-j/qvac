@@ -11,13 +11,13 @@ The Bare-only core of the QVAC SDK. It runs inference directly on the [Bare runt
 
 ## Why this exists
 
-`@qvac/core` is the pure-Bare, TypeScript-only layer of the SDK: the client API, the request engine, the plugin system, and the P2P/delegation stack, all running in one Bare process. `@qvac/sdk` builds on top of it to reach Node, Electron, Expo, and Pear by launching this core as a worker; on Bare you use it directly.
+`@qvac/core` is the pure-Bare layer of the SDK, written in TypeScript: the client API, the request engine, the plugin system, and the P2P/delegation stack, all running in one Bare process. `@qvac/sdk` builds on top of it to reach Node, Electron, Expo, and Pear by launching this core as a worker; on Bare you use it directly.
 
 Core ships no plugins by default and no addon dependencies. You install only the addon packages your app registers, so the resulting binary scales with the engines you actually assemble.
 
 ## Requirements
 
-- A Bare runtime that loads TypeScript. Core ships `.ts` and runs it directly — there is no build step.
+- A Bare runtime (see the `bare` version in `engines`). Core ships compiled JavaScript with type declarations; when working from source, run `npm run build` first.
 
 ## Install
 

@@ -6,6 +6,7 @@
     "module": "esnext",
     "types": [],
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
       "@qvac/core": ["./src/index.ts"],

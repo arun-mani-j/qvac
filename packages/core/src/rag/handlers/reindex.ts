@@ -1,8 +1,8 @@
-import { getRagDbAdapter, hasRagWorkspaceStorage } from '../rag-workspace-manager'
-import { ragReindexParamsSchema, type RagReindexParams } from '../../schemas'
+import { getRagDbAdapter, hasRagWorkspaceStorage } from '../rag-workspace-manager.ts'
+import { ragReindexParamsSchema, type RagReindexParams } from '../../schemas/index.ts'
 import type { AbortSignal } from 'bare-abort-controller'
 import type { ReindexOpts, ReindexResult, ReindexStage } from '@qvac/rag'
-import { RAGHyperDBFailedError } from '../../errors'
+import { RAGHyperDBFailedError } from '../../errors/index.ts'
 
 interface ReindexHandlerOptions {
   onProgress?: (stage: ReindexStage, current: number, total: number) => void

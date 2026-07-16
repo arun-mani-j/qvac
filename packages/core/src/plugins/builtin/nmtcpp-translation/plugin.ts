@@ -18,12 +18,12 @@ import {
   type NmtConfig,
   type ResolveContext,
   type ResolveResult
-} from '../../../schemas'
-import { createStreamLogger, registerAddonLogger } from '../../../logging'
+} from '../../../schemas/index.ts'
+import { createStreamLogger, registerAddonLogger } from '../../../logging/index.ts'
 import path from 'bare-path'
-import { translate } from '../../ops/translate'
-import { attachModelExecutionMs } from '../../../profiling/model-execution'
-import { resolveBergamotVocab, type PivotModelConfig } from './resolve-vocab'
+import { translate } from '../../ops/translate.ts'
+import { attachModelExecutionMs } from '../../../profiling/model-execution.ts'
+import { resolveBergamotVocab, type PivotModelConfig } from './resolve-vocab.ts'
 
 /**
  * Derive absolute vocab paths from a resolved Bergamot model path.

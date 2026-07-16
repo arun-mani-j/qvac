@@ -1,6 +1,6 @@
-import { type StopProvideRequest } from '../schemas'
-import { send } from '../dispatch'
-import { InvalidResponseError, ProviderStopFailedError } from '../errors'
+import { type StopProvideRequest } from '../schemas/index.ts'
+import { send } from '../dispatch.ts'
+import { InvalidResponseError, ProviderStopFailedError } from '../errors/index.ts'
 
 /**
  * Stops the running provider service.

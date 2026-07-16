@@ -1,9 +1,9 @@
-import { getModel } from '../../../../runtime/model-registry'
+import { getModel } from '../../../../runtime/model-registry.ts'
 import {
   type VlaHparamsRequest,
   type VlaHparamsResponse,
   vlaHparamsSchema
-} from '../../../../schemas'
+} from '../../../../schemas/index.ts'
 
 interface VlaModelLike {
   hparams: unknown

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ModelType } from './model-types'
+import { ModelType } from './model-types.ts'
 
 // QVAC Model Registry entry schema matching the RegistryItem from models/registry/models.ts
 const modelRegistryEntryAddonSchema = z.enum([

@@ -1,4 +1,4 @@
-import { send, stream } from '../dispatch'
+import { send, stream } from '../dispatch.ts'
 import {
   type RagRequest,
   type RagChunkParams,
@@ -19,7 +19,7 @@ import {
   type RagCloseWorkspaceParams,
   type RagDeleteWorkspaceParams,
   type RPCOptions
-} from '../schemas'
+} from '../schemas/index.ts'
 import {
   InvalidResponseError,
   InvalidOperationError,
@@ -30,9 +30,9 @@ import {
   RAGDeleteFailedError,
   RAGCloseWorkspaceFailedError,
   RAGListWorkspacesFailedError
-} from '../errors'
-import { generateRequestId } from '../runtime/request-id'
-import { decoratePromise } from '../utils/decorate-promise'
+} from '../errors/index.ts'
+import { generateRequestId } from '../runtime/request-id.ts'
+import { decoratePromise } from '../utils/decorate-promise.ts'
 
 // ============== Chunk ==============
 

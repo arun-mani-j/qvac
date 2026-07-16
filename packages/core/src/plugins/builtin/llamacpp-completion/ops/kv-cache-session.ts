@@ -7,11 +7,11 @@ import {
   getCurrentCacheInfo,
   renameCacheFile,
   deleteCache as deleteCacheUtil
-} from '../../../ops/kv-cache-utils'
-import type { CacheMessage } from '../../../../utils'
-import { logCacheSaveError, logCacheStatus } from './cache-logger'
-import { getEngineLogger } from '../../../../logging'
-import type { Logger } from '../../../../logging/types'
+} from '../../../ops/kv-cache-utils.ts'
+import type { CacheMessage } from '../../../../utils/index.ts'
+import { logCacheSaveError, logCacheStatus } from './cache-logger.ts'
+import { getEngineLogger } from '../../../../logging/index.ts'
+import type { Logger } from '../../../../logging/types.ts'
 
 // Used by cross-model paths that have no `RequestContext` (e.g.
 // `deleteKvCacheState`). Per-session call sites receive a logger from

@@ -1,6 +1,6 @@
-import type { Logger } from './types'
+import type { Logger } from './types.ts'
 import type { LogLevel } from '@qvac/logging'
-import { unregisterLogger } from './logger'
+import { unregisterLogger } from './logger.ts'
 
 // Map C++ addon priority (0-4) to LogLevel.
 const PRIORITY_TO_LEVEL: Record<number, LogLevel> = {

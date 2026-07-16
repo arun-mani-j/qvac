@@ -1,6 +1,6 @@
-import type { Tool, ToolDialect } from '../schemas'
-import { detectToolDialectFromName } from './tools'
-import { getModelInfo } from '../runtime/model-registry'
+import type { Tool, ToolDialect } from '../schemas/index.ts'
+import { detectToolDialectFromName } from './tools/index.ts'
+import { getModelInfo } from '../runtime/model-registry.ts'
 
 interface HistoryMessage {
   role: string

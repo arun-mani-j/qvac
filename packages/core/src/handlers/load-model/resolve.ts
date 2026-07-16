@@ -1,38 +1,38 @@
-import { models, getModelByPath } from '../../models/registry/models'
+import { models, getModelByPath } from '../../models/registry/models.ts'
 import {
   hyperdriveUrlSchema,
   registryUrlSchema,
   SUPPORTED_ARCHIVE_EXTENSIONS,
   modelInputToSrcSchema,
   type ModelProgressUpdate
-} from '../../schemas'
+} from '../../schemas/index.ts'
 import {
   getModelsCacheDir,
   getShardedModelCacheDir,
   generateShortHash,
   extractAndValidateShardedArchive
-} from '../../utils'
+} from '../../utils/index.ts'
 import { promises as fsPromises } from 'bare-fs'
 import path from 'bare-path'
-import { downloadModelFromHttp } from './http'
-import { downloadModelFromHyperdrive } from './hyperdrive'
-import { downloadModelFromRegistry } from './registry'
-import { getExplicitRegistryMetadata } from './registry-metadata'
+import { downloadModelFromHttp } from './http.ts'
+import { downloadModelFromHyperdrive } from './hyperdrive.ts'
+import { downloadModelFromRegistry } from './registry.ts'
+import { getExplicitRegistryMetadata } from './registry-metadata.ts'
 import {
   downloadModelFromHttpWithStats,
   downloadModelFromHyperdriveWithStats,
   downloadModelFromRegistryWithStats
-} from './download-stats'
-import type { ResolveResult, DownloadResult, DownloadHooks } from './types'
+} from './download-stats.ts'
+import type { ResolveResult, DownloadResult, DownloadHooks } from './types.ts'
 import type { AbortSignal } from 'bare-abort-controller'
 import {
   InferenceCancelledError,
   ModelLoadFailedError,
   ModelNotFoundError,
   SeedingNotSupportedError
-} from '../../errors'
-import { validateAndJoinPath } from '../../utils/path-security'
-import { getEngineLogger } from '../../logging'
+} from '../../errors/index.ts'
+import { validateAndJoinPath } from '../../utils/path-security.ts'
+import { getEngineLogger } from '../../logging/index.ts'
 
 type ResolveMode = 'base' | 'stats'
 

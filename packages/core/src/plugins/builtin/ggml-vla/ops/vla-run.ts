@@ -1,6 +1,6 @@
-import { getModel } from '../../../../runtime/model-registry'
-import { type VlaRunRequest, type VlaRunResponse, type VlaStats } from '../../../../schemas'
-import { decodeBase64, encodeBase64 } from '../../../../utils/encoding'
+import { getModel } from '../../../../runtime/model-registry.ts'
+import { type VlaRunRequest, type VlaRunResponse, type VlaStats } from '../../../../schemas/index.ts'
+import { decodeBase64, encodeBase64 } from '../../../../utils/encoding.ts'
 
 interface VlaRunNative {
   await(): Promise<{

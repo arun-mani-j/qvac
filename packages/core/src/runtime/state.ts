@@ -1,13 +1,13 @@
 import fs from 'bare-fs'
 import path from 'bare-path'
-import { getQvacPath } from '../utils/qvac-paths'
+import { getQvacPath } from '../utils/qvac-paths.ts'
 import {
   CacheDirNotAbsoluteError,
   CacheDirNotWritableError,
   ConfigAlreadySetError
-} from '../errors'
-import type { QvacConfig, RuntimeContext, CanonicalModelType } from '../schemas'
-import { getEngineLogger, setGlobalConsoleOutput, setGlobalLogLevel } from '../logging'
+} from '../errors/index.ts'
+import type { QvacConfig, RuntimeContext, CanonicalModelType } from '../schemas/index.ts'
+import { getEngineLogger, setGlobalConsoleOutput, setGlobalLogLevel } from '../logging/index.ts'
 
 export {
   CANONICAL_TO_ALIAS,
@@ -17,9 +17,9 @@ export {
   findAllMatchingPatterns,
   getDefaultsFromPattern,
   resolveModelConfigWithContext
-} from './model-config-utils'
+} from './model-config-utils.ts'
 
-import { BUILTIN_DEVICE_PATTERNS, resolveModelConfigWithContext } from './model-config-utils'
+import { BUILTIN_DEVICE_PATTERNS, resolveModelConfigWithContext } from './model-config-utils.ts'
 
 const logger = getEngineLogger()
 

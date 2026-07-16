@@ -7,9 +7,9 @@
  * 3. Disabled default
  */
 
-import type { ProfilerMode, PerCallProfiling } from '../schemas'
-import { getGlobalSingleton } from '../utils/global-singleton'
-import type { ProfilerRuntimeOptions, ProfilingEvent, AggregatedStats } from './types'
+import type { ProfilerMode, PerCallProfiling } from '../schemas/index.ts'
+import { getGlobalSingleton } from '../utils/global-singleton.ts'
+import type { ProfilerRuntimeOptions, ProfilingEvent, AggregatedStats } from './types.ts'
 import {
   createAggregator,
   recordEvent as aggregatorRecord,
@@ -17,8 +17,8 @@ import {
   getRecentEvents as aggregatorGetRecentEvents,
   clearAggregator,
   setMaxRecentEvents
-} from './aggregator'
-import { nowMs, generateProfileId } from './clock'
+} from './aggregator.ts'
+import { nowMs, generateProfileId } from './clock.ts'
 
 export interface ResolvedProfilerConfig {
   enabled: boolean

@@ -2,10 +2,10 @@ import {
   type GetLoadedModelInfoParams,
   type GetLoadedModelInfoRequest,
   type LoadedModelInfo
-} from '../schemas'
-import { type RPCOptions } from '../schemas/common'
-import { send } from '../dispatch'
-import { InvalidResponseError } from '../errors'
+} from '../schemas/index.ts'
+import { type RPCOptions } from '../schemas/common.ts'
+import { send } from '../dispatch.ts'
+import { InvalidResponseError } from '../errors/index.ts'
 
 /**
  * Returns introspection info for a loaded `modelId` (local or delegated).

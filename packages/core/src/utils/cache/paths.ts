@@ -1,14 +1,14 @@
 import fs, { promises as fsPromises } from 'bare-fs'
 import path from 'bare-path'
-import { getConfiguredCacheDir } from '../../runtime/state'
-import { getQvacPath } from '../qvac-paths'
-import type { ShardFileMetadata } from '../../schemas'
-import { calculateFileChecksum } from '../checksum'
-import { validateAndJoinPath } from '../path-security'
-import { generateShortHash } from '../formatting'
-import { getEngineLogger } from '../../logging'
-import { nowMs } from '../../profiling'
-import { resolveClearStorageTarget } from '../clear-storage'
+import { getConfiguredCacheDir } from '../../runtime/state.ts'
+import { getQvacPath } from '../qvac-paths.ts'
+import type { ShardFileMetadata } from '../../schemas/index.ts'
+import { calculateFileChecksum } from '../checksum.ts'
+import { validateAndJoinPath } from '../path-security.ts'
+import { generateShortHash } from '../formatting.ts'
+import { getEngineLogger } from '../../logging/index.ts'
+import { nowMs } from '../../profiling/index.ts'
+import { resolveClearStorageTarget } from '../clear-storage.ts'
 
 const logger = getEngineLogger()
 

@@ -1,4 +1,4 @@
-import type { TtsStats } from '../schemas'
+import type { TtsStats } from '../schemas/index.ts'
 
 /**
  * Shared types and utilities for TTS operations.

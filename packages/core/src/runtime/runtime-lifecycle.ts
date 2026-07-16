@@ -1,6 +1,6 @@
-import type { LifecycleState, Request } from '../schemas'
-import { getEngineLogger } from '../logging'
-import { LifecycleOperationBlockedError } from '../errors'
+import type { LifecycleState, Request } from '../schemas/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import { LifecycleOperationBlockedError } from '../errors/index.ts'
 
 const logger = getEngineLogger()
 

@@ -1,13 +1,13 @@
-import type { LoadModelSrcRequest, LoadModelResponse, ModelProgressUpdate } from '../schemas'
-import { DELEGATION_BREAKDOWN_KEY, OPERATION_EVENT_KEY, modelInputToSrcSchema } from '../schemas'
-import type { DelegatedHandlerOptions } from '../profiling'
-import type { ResponseWithDelegation } from './delegate-transport'
-import { registerModel, isModelLoaded, unregisterModel } from '../runtime/model-registry'
-import { send, stream, type DelegateOptions } from './delegate-transport'
-import { getRPC } from './delegate-client'
-import { handleLoadModel } from '../handlers/load-model'
-import { ModelLoadFailedError, DelegateNoFinalResponseError } from '../errors'
-import { getEngineLogger } from '../logging'
+import type { LoadModelSrcRequest, LoadModelResponse, ModelProgressUpdate } from '../schemas/index.ts'
+import { DELEGATION_BREAKDOWN_KEY, OPERATION_EVENT_KEY, modelInputToSrcSchema } from '../schemas/index.ts'
+import type { DelegatedHandlerOptions } from '../profiling/index.ts'
+import type { ResponseWithDelegation } from './delegate-transport.ts'
+import { registerModel, isModelLoaded, unregisterModel } from '../runtime/model-registry.ts'
+import { send, stream, type DelegateOptions } from './delegate-transport.ts'
+import { getRPC } from './delegate-client.ts'
+import { handleLoadModel } from '../handlers/load-model/index.ts'
+import { ModelLoadFailedError, DelegateNoFinalResponseError } from '../errors/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
 
 const logger = getEngineLogger()
 

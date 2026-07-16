@@ -1,6 +1,6 @@
-import { registerPlugins } from './registry'
-import * as hostApi from '../api'
-import type { QvacPlugin } from '../schemas/plugin'
+import { registerPlugins } from './registry.ts'
+import * as hostApi from '../api/index.ts'
+import type { QvacPlugin } from '../schemas/plugin.ts'
 
 export {
   registerPlugin,
@@ -11,7 +11,7 @@ export {
   getAllPlugins,
   clearPlugins,
   unregisterPlugin
-} from './registry'
+} from './registry.ts'
 
 /**
  * Register a set of plugins and return the host API bound to them. The

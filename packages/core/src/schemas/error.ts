@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { QvacErrorBase } from '@qvac/error'
-import { formatZodError } from '../utils/zod-error'
+import { formatZodError } from '../utils/zod-error.ts'
 
 /**
  * Serialized shape for errors that cross a response boundary — a

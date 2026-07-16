@@ -1,12 +1,12 @@
-import { getModel } from '../../runtime/model-registry'
-import { type EmbedParams, type EmbedStats, embedParamsSchema } from '../../schemas'
-import { buildUnaryResult } from '../../profiling/model-execution'
-import { EmbedNoEmbeddingsError, EmbedFailedError, InferenceCancelledError } from '../../errors'
-import { nowMs } from '../../profiling'
-import type { EmbedResponse } from '../../utils/addon-responses'
-import { getRequestRegistry, withRequestContext } from '../../runtime'
-import { generateRandomRequestId } from '../../runtime/request-id'
-import { getEngineLogger } from '../../logging'
+import { getModel } from '../../runtime/model-registry.ts'
+import { type EmbedParams, type EmbedStats, embedParamsSchema } from '../../schemas/index.ts'
+import { buildUnaryResult } from '../../profiling/model-execution.ts'
+import { EmbedNoEmbeddingsError, EmbedFailedError, InferenceCancelledError } from '../../errors/index.ts'
+import { nowMs } from '../../profiling/index.ts'
+import type { EmbedResponse } from '../../utils/addon-responses.ts'
+import { getRequestRegistry, withRequestContext } from '../../runtime/index.ts'
+import { generateRandomRequestId } from '../../runtime/request-id.ts'
+import { getEngineLogger } from '../../logging/index.ts'
 
 export interface EmbedResult {
   embedding: number[] | number[][]

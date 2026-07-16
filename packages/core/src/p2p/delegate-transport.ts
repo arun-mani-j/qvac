@@ -21,18 +21,18 @@ import {
   type ProfilingResponseMeta,
   type DelegationBreakdown,
   type OperationEvent
-} from '../schemas'
+} from '../schemas/index.ts'
 import {
   nowMs,
   extractProfilingMeta,
   stripProfilingMeta,
   recordFailure,
   generateId
-} from '../profiling'
-import { withTimeout, withTimeoutStream } from '../utils/withTimeout'
-import { getEngineLogger } from '../logging'
-import { DelegateProviderError } from '../errors'
-import { cleanupStaleConnection } from './delegate-client'
+} from '../profiling/index.ts'
+import { withTimeout, withTimeoutStream } from '../utils/withTimeout.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import { DelegateProviderError } from '../errors/index.ts'
+import { cleanupStaleConnection } from './delegate-client.ts'
 import {
   shouldProfileDelegation,
   createDelegationTimings,
@@ -44,8 +44,8 @@ import {
   consumeBreakdownConnectionTime,
   type DelegationTimings,
   type DelegationStreamTimings
-} from '../profiling/delegation-profiler'
-import type { DelegatedHandlerOptions } from '../profiling'
+} from '../profiling/delegation-profiler.ts'
+import type { DelegatedHandlerOptions } from '../profiling/index.ts'
 
 export interface DelegateOptions extends RPCOptions, DelegatedHandlerOptions {
   peerKey?: string
@@ -58,7 +58,7 @@ export type ResponseWithDelegation = Response & {
 
 const logger = getEngineLogger()
 
-import { getNextCommandId } from './rpc-utils'
+import { getNextCommandId } from './rpc-utils.ts'
 
 function checkAndThrowError(response: Response): void {
   if (response.type === 'error') {

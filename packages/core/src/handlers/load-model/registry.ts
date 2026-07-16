@@ -1,4 +1,4 @@
-import type { ModelProgressUpdate } from '../../schemas'
+import type { ModelProgressUpdate } from '../../schemas/index.ts'
 import type { QVACModelEntry, QVACBlobBinding } from '@qvac/registry-client'
 import { promises as fsPromises } from 'bare-fs'
 import type { AbortSignal } from 'bare-abort-controller'
@@ -9,29 +9,29 @@ import {
   getShardPath,
   extractTensorsFromShards,
   calculatePercentage
-} from '../../utils'
-import { getSingleFileCachePath } from '../../utils/cache/paths'
-import { getModelByPath, type RegistryItem } from '../../models/registry'
-import { getRegistryClient } from '../../runtime/registry-client'
+} from '../../utils/index.ts'
+import { getSingleFileCachePath } from '../../utils/cache/paths.ts'
+import { getModelByPath, type RegistryItem } from '../../models/registry/index.ts'
+import { getRegistryClient } from '../../runtime/registry-client.ts'
 import {
   createRegistryDownloadKey,
   startOrJoinDownload,
   applyJoinedDownloadStats
-} from './download-manager'
+} from './download-manager.ts'
 import {
   buildBlobBinding,
   validateCachedFile,
   downloadSingleFileFromRegistry
-} from './registry-download-utils'
-import { downloadCompanionSetFromRegistry } from './registry-companion-set'
+} from './registry-download-utils.ts'
+import { downloadCompanionSetFromRegistry } from './registry-companion-set.ts'
 import {
   DownloadCancelledError,
   ModelNotFoundError,
   RegistryDownloadFailedError
-} from '../../errors'
-import { getEngineLogger } from '../../logging'
-import type { DownloadHooks } from './types'
-import { resolveRegistryDownloadMetadata, type ExplicitRegistryMetadata } from './registry-metadata'
+} from '../../errors/index.ts'
+import { getEngineLogger } from '../../logging/index.ts'
+import type { DownloadHooks } from './types.ts'
+import { resolveRegistryDownloadMetadata, type ExplicitRegistryMetadata } from './registry-metadata.ts'
 
 const logger = getEngineLogger()
 

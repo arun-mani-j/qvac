@@ -1,9 +1,9 @@
 import { z } from 'zod'
-import { toolSchema } from './tools'
-import { completionEventSchema } from './completion-event'
-import { REASONING_BUDGET_MAX } from './llamacpp-config'
+import { toolSchema } from './tools.ts'
+import { completionEventSchema } from './completion-event.ts'
+import { REASONING_BUDGET_MAX } from './llamacpp-config.ts'
 
-export { completionStatsSchema, type CompletionStats } from './completion-event'
+export { completionStatsSchema, type CompletionStats } from './completion-event.ts'
 
 /**
  * Tool-call output dialect. Auto-detected from the model name; pass via

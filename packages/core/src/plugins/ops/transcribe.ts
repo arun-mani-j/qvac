@@ -3,7 +3,7 @@ import {
   getModel,
   getModelConfig,
   getModelEntry
-} from '../../runtime/model-registry'
+} from '../../runtime/model-registry.ts'
 import {
   ModelType,
   type TranscribeParams,
@@ -13,21 +13,21 @@ import {
   type WhisperConfig,
   type AudioFormat,
   type ParakeetStreamingRunConfig
-} from '../../schemas'
+} from '../../schemas/index.ts'
 import type Buffer from 'bare-buffer'
-import { createAudioStream } from '../../utils/audio-input'
-import { getEngineLogger } from '../../logging'
-import { TranscriptionFailedError } from '../../errors'
-import type { TranscribeResponse } from '../../utils/addon-responses'
-import { nowMs } from '../../profiling'
-import { buildStreamResult } from '../../profiling/model-execution'
+import { createAudioStream } from '../../utils/audio-input.ts'
+import { getEngineLogger } from '../../logging/index.ts'
+import { TranscriptionFailedError } from '../../errors/index.ts'
+import type { TranscribeResponse } from '../../utils/addon-responses.ts'
+import { nowMs } from '../../profiling/index.ts'
+import { buildStreamResult } from '../../profiling/model-execution.ts'
 import {
   assertMetadataSupported,
   toTranscribeSegment,
   type WhisperAddonSegment
-} from '../../utils/transcribe-metadata'
-import { getRequestRegistry, withRequestContext } from '../../runtime'
-import { generateRandomRequestId } from '../../runtime/request-id'
+} from '../../utils/transcribe-metadata.ts'
+import { getRequestRegistry, withRequestContext } from '../../runtime/index.ts'
+import { generateRandomRequestId } from '../../runtime/request-id.ts'
 
 export { assertMetadataSupported, toTranscribeSegment, type WhisperAddonSegment }
 

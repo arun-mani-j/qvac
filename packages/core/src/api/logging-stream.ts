@@ -1,10 +1,10 @@
-import { stream } from '../dispatch'
+import { stream } from '../dispatch.ts'
 import type {
   LoggingStreamResponse,
   LoggingStreamRequest,
   LoggingParams
-} from '../schemas/logging-stream'
-import { InvalidResponseError } from '../errors'
+} from '../schemas/logging-stream.ts'
+import { InvalidResponseError } from '../errors/index.ts'
 
 /**
  * Opens a logging stream to receive real-time logs.

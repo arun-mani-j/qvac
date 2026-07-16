@@ -1,12 +1,12 @@
 import { z } from 'zod'
-import { logLevelSchema } from './logging-stream'
-import { ModelType } from './model-types'
-import { llmConfigBaseSchema, embedConfigBaseSchema } from './llamacpp-config'
-import { whisperConfigSchema, parakeetConfigSchema } from './transcription-config'
-import { ocrConfigSchema } from './ocr'
-import { sdcppConfigSchema } from './sdcpp-config'
-import { vlaConfigSchema } from './vla'
-import { runtimeContextSchema } from './runtime-context'
+import { logLevelSchema } from './logging-stream.ts'
+import { ModelType } from './model-types.ts'
+import { llmConfigBaseSchema, embedConfigBaseSchema } from './llamacpp-config.ts'
+import { whisperConfigSchema, parakeetConfigSchema } from './transcription-config.ts'
+import { ocrConfigSchema } from './ocr.ts'
+import { sdcppConfigSchema } from './sdcpp-config.ts'
+import { vlaConfigSchema } from './vla.ts'
+import { runtimeContextSchema } from './runtime-context.ts'
 
 // Alias keys for user convenience (maps to canonical types)
 const AliasKeys = {

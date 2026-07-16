@@ -1,6 +1,6 @@
-import { getRagInstance, hasRagWorkspaceStorage } from '../rag-workspace-manager'
-import { embed } from '../../plugins/ops/embed'
-import { ragSearchParamsSchema, type RagSearchParams } from '../../schemas'
+import { getRagInstance, hasRagWorkspaceStorage } from '../rag-workspace-manager.ts'
+import { embed } from '../../plugins/ops/embed.ts'
+import { ragSearchParamsSchema, type RagSearchParams } from '../../schemas/index.ts'
 
 export async function search(params: RagSearchParams) {
   const { modelId, query, topK, n, workspace } = ragSearchParamsSchema.parse(params)

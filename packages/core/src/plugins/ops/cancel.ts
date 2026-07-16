@@ -1,9 +1,9 @@
-import { getModel } from '../../runtime/model-registry'
-import { type CancelInferenceBaseParams, cancelInferenceBaseSchema } from '../../schemas'
-import { ModelNotLoadedError } from '../../errors'
-import { getRequestRegistry } from '../../runtime'
-import type { RequestKind } from '../../runtime'
-import { getEngineLogger } from '../../logging'
+import { getModel } from '../../runtime/model-registry.ts'
+import { type CancelInferenceBaseParams, cancelInferenceBaseSchema } from '../../schemas/index.ts'
+import { ModelNotLoadedError } from '../../errors/index.ts'
+import { getRequestRegistry } from '../../runtime/index.ts'
+import type { RequestKind } from '../../runtime/index.ts'
+import { getEngineLogger } from '../../logging/index.ts'
 
 const logger = getEngineLogger()
 

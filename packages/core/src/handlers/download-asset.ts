@@ -1,16 +1,16 @@
-import type { DownloadAssetRequest, DownloadAssetResponse, ModelProgressUpdate } from '../schemas'
-import { PROFILING_KEY, OPERATION_EVENT_KEY, type OperationEvent } from '../schemas'
-import { resolveModelPath, resolveModelPathWithStats } from './load-model/resolve'
+import type { DownloadAssetRequest, DownloadAssetResponse, ModelProgressUpdate } from '../schemas/index.ts'
+import { PROFILING_KEY, OPERATION_EVENT_KEY, type OperationEvent } from '../schemas/index.ts'
+import { resolveModelPath, resolveModelPathWithStats } from './load-model/resolve.ts'
 import {
   buildDownloadProfilingFields,
   type DownloadStats,
   type DownloadHooks
-} from './load-model/types'
-import { nowMs, generateProfileId } from '../profiling/clock'
-import { getEngineLogger } from '../logging'
-import { getRequestRegistry, withRequestContext } from '../runtime'
-import { generateRandomRequestId } from '../runtime/request-id'
-import { InferenceCancelledError } from '../errors'
+} from './load-model/types.ts'
+import { nowMs, generateProfileId } from '../profiling/clock.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import { getRequestRegistry, withRequestContext } from '../runtime/index.ts'
+import { generateRandomRequestId } from '../runtime/request-id.ts'
+import { InferenceCancelledError } from '../errors/index.ts'
 
 const logger = getEngineLogger()
 

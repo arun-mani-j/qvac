@@ -1,5 +1,5 @@
 import fs from 'bare-fs'
-import { getModel, type AnyModel } from '../../../../runtime/model-registry'
+import { getModel, type AnyModel } from '../../../../runtime/model-registry.ts'
 import type {
   FinetuneRunParams,
   FinetuneRunRequest,
@@ -9,11 +9,11 @@ import type {
   FinetuneStats,
   FinetuneStatus,
   FinetuneGetStateRequest
-} from '../../../../schemas'
-import { CompletionFailedError } from '../../../../errors'
-import { getRequestRegistry, withRequestContext } from '../../../../runtime'
-import { generateRandomRequestId } from '../../../../runtime/request-id'
-import { getEngineLogger } from '../../../../logging'
+} from '../../../../schemas/index.ts'
+import { CompletionFailedError } from '../../../../errors/index.ts'
+import { getRequestRegistry, withRequestContext } from '../../../../runtime/index.ts'
+import { generateRandomRequestId } from '../../../../runtime/request-id.ts'
+import { getEngineLogger } from '../../../../logging/index.ts'
 
 const PAUSE_CHECKPOINT_PREFIX = 'pause_checkpoint_step_'
 

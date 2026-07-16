@@ -1,13 +1,13 @@
 import { promises as fsPromises } from 'bare-fs'
 import path from 'bare-path'
-import { unregisterModel } from '../../runtime/model-registry'
-import { unregisterAllLoggingStreams } from '../../runtime/logging-stream-registry'
-import { clearFinetuneRuntimeState } from '../builtin/llamacpp-completion/ops/finetune'
-import { unregisterAddonLogger, getEngineLogger } from '../../logging'
-import { type UnloadModelParams, unloadModelParamsSchema } from '../../schemas'
-import { ModelNotLoadedError } from '../../errors'
-import { detectShardedModel } from '../../utils'
-import { getClearStorageTarget } from '../../utils/cache/paths'
+import { unregisterModel } from '../../runtime/model-registry.ts'
+import { unregisterAllLoggingStreams } from '../../runtime/logging-stream-registry.ts'
+import { clearFinetuneRuntimeState } from '../builtin/llamacpp-completion/ops/finetune.ts'
+import { unregisterAddonLogger, getEngineLogger } from '../../logging/index.ts'
+import { type UnloadModelParams, unloadModelParamsSchema } from '../../schemas/index.ts'
+import { ModelNotLoadedError } from '../../errors/index.ts'
+import { detectShardedModel } from '../../utils/index.ts'
+import { getClearStorageTarget } from '../../utils/cache/paths.ts'
 
 const logger = getEngineLogger()
 

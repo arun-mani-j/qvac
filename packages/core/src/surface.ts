@@ -120,34 +120,34 @@ export {
   type FinetuneResult,
   MODEL_TYPES,
   ModelType
-} from './schemas'
+} from './schemas/index.ts'
 
-export { type ToolInput, type ToolHandler } from './utils/tool-helpers'
+export { type ToolInput, type ToolHandler } from './utils/tool-helpers.ts'
 
 // The full value-clean schema, profiling, and constant barrels: the SDK client
 // and worker source every internal schema/const/profiling name from here, so it
 // carries no duplicate copies. All value-clean (only erased `import type` touches
 // `bare-*`), so this stays Node-safe.
-export * from './schemas'
-export * from './profiling'
-export * from './constants'
+export * from './schemas/index.ts'
+export * from './profiling/index.ts'
+export * from './constants/index.ts'
 
 // Value-clean helpers the SDK's registry codegen and server-side profiler reach
 // for; not part of either barrel, so re-exported explicitly here.
-export { getAddonFromEngine, resolveCanonicalEngine } from './schemas/engine-addon-map'
-export { generateProfileId } from './profiling/clock'
-export { readModelExecutionMs } from './profiling/model-execution'
+export { getAddonFromEngine, resolveCanonicalEngine } from './schemas/engine-addon-map.ts'
+export { generateProfileId } from './profiling/clock.ts'
+export { readModelExecutionMs } from './profiling/model-execution.ts'
 export {
   PUBLIC_MODEL_TYPES,
   ModelTypeAliases,
   modelTypeInputSchema,
   modelTypeSchema
-} from './schemas/model-types'
+} from './schemas/model-types.ts'
 
 // Model registry constants
-export * from './models/registry'
+export * from './models/registry/index.ts'
 
-export { SUPPORTED_AUDIO_FORMATS } from './constants/audio'
+export { SUPPORTED_AUDIO_FORMATS } from './constants/audio.ts'
 
 // Error classes consumers need for `instanceof` checks on rejected promises.
 export {
@@ -158,13 +158,13 @@ export {
   RequestRejectedByPolicyError,
   RequestValidationFailedError,
   ModelNotLoadedError
-} from './errors'
-export type { InferenceCancelledPartial } from './errors'
+} from './errors/index.ts'
+export type { InferenceCancelledPartial } from './errors/index.ts'
 
 // Logging
-export { getLogger, LOG_ID, ALL_LOG_ID } from './logging'
-export type { Logger, LogTransport, LoggerOptions } from './logging'
+export { getLogger, LOG_ID, ALL_LOG_ID } from './logging/index.ts'
+export type { Logger, LogTransport, LoggerOptions } from './logging/index.ts'
 
 // Profiler
-export { profiler } from './profiling'
-export type { ProfilerRuntimeOptions, ProfilerExport } from './profiling'
+export { profiler } from './profiling/index.ts'
+export type { ProfilerRuntimeOptions, ProfilerExport } from './profiling/index.ts'

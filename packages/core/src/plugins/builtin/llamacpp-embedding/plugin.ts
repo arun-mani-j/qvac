@@ -11,13 +11,13 @@ import {
   type CreateModelParams,
   type PluginModelResult,
   type EmbedConfig
-} from '../../../schemas'
-import { createStreamLogger, registerAddonLogger, getEngineLogger } from '../../../logging'
-import { expandGGUFIntoShards } from '../../../utils'
-import { embed } from '../../ops/embed'
-import { forwardModelExecution } from '../../../profiling/model-execution'
-import { isMobile } from '../../../runtime/state'
-import { stripMultiGpuKeys } from '../../../utils/multi-gpu-mobile'
+} from '../../../schemas/index.ts'
+import { createStreamLogger, registerAddonLogger, getEngineLogger } from '../../../logging/index.ts'
+import { expandGGUFIntoShards } from '../../../utils/index.ts'
+import { embed } from '../../ops/embed.ts'
+import { forwardModelExecution } from '../../../profiling/model-execution.ts'
+import { isMobile } from '../../../runtime/state.ts'
+import { stripMultiGpuKeys } from '../../../utils/multi-gpu-mobile.ts'
 
 function transformEmbedConfig(embedConfig: EmbedConfig): GGMLConfig {
   const config: GGMLConfig = {

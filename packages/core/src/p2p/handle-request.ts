@@ -5,15 +5,15 @@ import {
   type CanonicalModelType,
   type Request,
   type ProfilingRequestMeta
-} from '../schemas'
-import { nowMs, createServerProfiler, type ServerProfiler } from '../profiling'
-import { resolveModelConfig } from '../runtime/state'
+} from '../schemas/index.ts'
+import { nowMs, createServerProfiler, type ServerProfiler } from '../profiling/index.ts'
+import { resolveModelConfig } from '../runtime/state.ts'
 import type RPC from 'bare-rpc'
 import type Buffer from 'bare-buffer'
-import { sendErrorResponse, sendStreamErrorResponse } from './error-handlers'
-import { RPCUnknownRequestTypeError, PluginHandlerTypeMismatchError } from '../errors'
-import { registry } from '../registry'
-import type { HandlerEntry } from '../handlers/types'
+import { sendErrorResponse, sendStreamErrorResponse } from './error-handlers.ts'
+import { RPCUnknownRequestTypeError, PluginHandlerTypeMismatchError } from '../errors/index.ts'
+import { registry } from '../registry.ts'
+import type { HandlerEntry } from '../handlers/types.ts'
 import {
   executeHandler,
   executeDuplexHandler,
@@ -21,9 +21,9 @@ import {
   isInitConfigMessage,
   handleShutdown,
   isShutdownMessage
-} from './handler-utils'
-import { assertLifecycleAllowed } from '../runtime/runtime-lifecycle'
-import { shouldUseStreamErrorTransport } from './transport-selector'
+} from './handler-utils.ts'
+import { assertLifecycleAllowed } from '../runtime/runtime-lifecycle.ts'
+import { shouldUseStreamErrorTransport } from './transport-selector.ts'
 
 export async function handleRequest(req: RPC.IncomingRequest): Promise<void> {
   let profiler: ServerProfiler | undefined

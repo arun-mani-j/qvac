@@ -3,10 +3,10 @@ import type {
   PluginInvokeResponse,
   PluginInvokeStreamRequest,
   PluginInvokeStreamResponse
-} from '../schemas/plugin'
-import { getModelEntry } from '../runtime/model-registry'
-import { getPlugin, getPluginHandler } from '../plugins'
-import { profileReplyHandler, profileStreamHandler } from '../profiling'
+} from '../schemas/plugin.ts'
+import { getModelEntry } from '../runtime/model-registry.ts'
+import { getPlugin, getPluginHandler } from '../plugins/index.ts'
+import { profileReplyHandler, profileStreamHandler } from '../profiling/index.ts'
 import {
   PluginNotFoundError,
   PluginHandlerNotFoundError,
@@ -15,9 +15,9 @@ import {
   PluginResponseValidationFailedError,
   ModelIsDelegatedError,
   ModelNotFoundError
-} from '../errors'
-import { getEngineLogger } from '../logging'
-import { formatZodError } from '../utils/zod-error'
+} from '../errors/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import { formatZodError } from '../utils/zod-error.ts'
 
 const logger = getEngineLogger()
 

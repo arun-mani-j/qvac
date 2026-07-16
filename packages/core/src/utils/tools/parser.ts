@@ -1,11 +1,11 @@
-import type { Tool, ToolCall, ToolCallError, ToolDialect } from '../../schemas'
-import { stripThinkingBlocks, type ParserResult } from './shared'
-import { parseGemmaFormat, parseGenericFormat, parseLlamacppFormat } from './parsers/json'
-import { parseHermesFormat } from './parsers/hermes'
-import { parsePythonicFormat } from './parsers/pythonic'
-import { parseHarmonyFormat } from './parsers/harmony'
-import { parseQwen35Format } from './parsers/qwen35'
-import { parseGemma4NativeFormat } from './parsers/gemma4native'
+import type { Tool, ToolCall, ToolCallError, ToolDialect } from '../../schemas/index.ts'
+import { stripThinkingBlocks, type ParserResult } from './shared.ts'
+import { parseGemmaFormat, parseGenericFormat, parseLlamacppFormat } from './parsers/json.ts'
+import { parseHermesFormat } from './parsers/hermes.ts'
+import { parsePythonicFormat } from './parsers/pythonic.ts'
+import { parseHarmonyFormat } from './parsers/harmony.ts'
+import { parseQwen35Format } from './parsers/qwen35.ts'
+import { parseGemma4NativeFormat } from './parsers/gemma4native.ts'
 
 function pickFormatParsers(
   dialect: ToolDialect | undefined

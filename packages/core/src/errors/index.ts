@@ -1,7 +1,7 @@
 import { QvacErrorBase } from '@qvac/error'
-import { ERROR_CODES } from '../schemas/errors'
-import type { CompletionStats, ToolCallWithCall } from '../schemas'
-import { createErrorOptions } from './options'
+import { ERROR_CODES } from '../schemas/errors.ts'
+import type { CompletionStats, ToolCallWithCall } from '../schemas/index.ts'
+import { createErrorOptions } from './options.ts'
 
 // ============== Response / request validation ==============
 

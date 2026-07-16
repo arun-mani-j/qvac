@@ -1,10 +1,10 @@
-import type { CompletionStreamRequest, CompletionStreamResponse } from '../schemas'
-import type { DelegatedHandlerOptions } from '../profiling'
-import { getModelEntry } from '../runtime/model-registry'
-import { getRPC } from './delegate-client'
-import { stream, type DelegateOptions } from './delegate-transport'
-import { ModelIsDelegatedError } from '../errors'
-import { getEngineLogger } from '../logging'
+import type { CompletionStreamRequest, CompletionStreamResponse } from '../schemas/index.ts'
+import type { DelegatedHandlerOptions } from '../profiling/index.ts'
+import { getModelEntry } from '../runtime/model-registry.ts'
+import { getRPC } from './delegate-client.ts'
+import { stream, type DelegateOptions } from './delegate-transport.ts'
+import { ModelIsDelegatedError } from '../errors/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
 
 const logger = getEngineLogger()
 

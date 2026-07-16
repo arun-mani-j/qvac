@@ -9,8 +9,8 @@ import {
   type ServerBreakdown,
   type DelegationBreakdown,
   type OperationEvent
-} from '../schemas'
-import { nowMs } from './clock'
+} from '../schemas/index.ts'
+import { nowMs } from './clock.ts'
 
 export interface ServerProfilingContext {
   meta: ProfilingRequestMeta

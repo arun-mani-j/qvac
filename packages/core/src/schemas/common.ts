@@ -1,60 +1,60 @@
 import { z } from 'zod'
-import { perCallProfilingSchema } from './profiling'
-import { heartbeatRequestSchema, heartbeatResponseSchema } from './delegate'
-import { completionStreamRequestSchema, completionStreamResponseSchema } from './completion-stream'
+import { perCallProfilingSchema } from './profiling.ts'
+import { heartbeatRequestSchema, heartbeatResponseSchema } from './delegate.ts'
+import { completionStreamRequestSchema, completionStreamResponseSchema } from './completion-stream.ts'
 import {
   batchCompletionStreamRequestSchema,
   batchCompletionStreamResponseSchema
-} from './batch-completion-stream'
+} from './batch-completion-stream.ts'
 import {
   loadModelRequestSchema,
   loadModelResponseSchema,
   modelProgressUpdateSchema
-} from './load-model'
-import { downloadAssetRequestSchema, downloadAssetResponseSchema } from './download-asset'
+} from './load-model.ts'
+import { downloadAssetRequestSchema, downloadAssetResponseSchema } from './download-asset.ts'
 import {
   unloadModelRequestSchema,
   unloadModelResponseSchema,
   deleteCacheRequestSchema,
   deleteCacheResponseSchema
-} from './model-ops'
+} from './model-ops.ts'
 import {
   transcribeRequestSchema,
   transcribeResponseSchema,
   transcribeStreamRequestSchema,
   transcribeStreamResponseSchema
-} from './transcription'
+} from './transcription.ts'
 import {
   bciTranscribeRequestSchema,
   bciTranscribeResponseSchema,
   bciTranscribeStreamRequestSchema,
   bciTranscribeStreamResponseSchema
-} from './bci'
-import { embedRequestSchema, embedResponseSchema } from './embed'
-import { cancelRequestSchema, cancelResponseSchema } from './cancel'
+} from './bci.ts'
+import { embedRequestSchema, embedResponseSchema } from './embed.ts'
+import { cancelRequestSchema, cancelResponseSchema } from './cancel.ts'
 import {
   provideRequestSchema,
   provideResponseSchema,
   stopProvideRequestSchema,
   stopProvideResponseSchema
-} from './provide'
-import { translateRequestSchema, translateResponseSchema } from './translate'
-import { loggingStreamRequestSchema, loggingStreamResponseSchema } from './logging-stream'
+} from './provide.ts'
+import { translateRequestSchema, translateResponseSchema } from './translate.ts'
+import { loggingStreamRequestSchema, loggingStreamResponseSchema } from './logging-stream.ts'
 import {
   ttsRequestSchema,
   ttsResponseSchema,
   textToSpeechStreamRequestSchema,
   textToSpeechStreamResponseSchema
-} from './text-to-speech'
-import { errorResponseSchema } from './error'
-import { ragRequestSchema, ragResponseSchema, ragProgressUpdateSchema } from './rag'
+} from './text-to-speech.ts'
+import { errorResponseSchema } from './error.ts'
+import { ragRequestSchema, ragResponseSchema, ragProgressUpdateSchema } from './rag.ts'
 import {
   getModelInfoRequestSchema,
   getModelInfoResponseSchema,
   getLoadedModelInfoRequestSchema,
   getLoadedModelInfoResponseSchema
-} from './model-info'
-import { ocrStreamRequestSchema, ocrStreamResponseSchema } from './ocr'
+} from './model-info.ts'
+import { ocrStreamRequestSchema, ocrStreamResponseSchema } from './ocr.ts'
 import {
   diffusionStreamRequestSchema,
   diffusionStreamResponseSchema,
@@ -62,18 +62,18 @@ import {
   videoStreamResponseSchema,
   upscaleStreamRequestSchema,
   upscaleStreamResponseSchema
-} from './sdcpp-config'
+} from './sdcpp-config.ts'
 import {
   finetuneRequestSchema,
   finetuneResponseSchema,
   finetuneProgressResponseSchema
-} from './finetune'
+} from './finetune.ts'
 import {
   pluginInvokeRequestSchema,
   pluginInvokeResponseSchema,
   pluginInvokeStreamRequestSchema,
   pluginInvokeStreamResponseSchema
-} from './plugin'
+} from './plugin.ts'
 import {
   modelRegistryListRequestSchema,
   modelRegistryListResponseSchema,
@@ -81,7 +81,7 @@ import {
   modelRegistrySearchResponseSchema,
   modelRegistryGetModelRequestSchema,
   modelRegistryGetModelResponseSchema
-} from './registry'
+} from './registry.ts'
 import {
   suspendRequestSchema,
   suspendResponseSchema,
@@ -89,8 +89,8 @@ import {
   resumeResponseSchema,
   stateRequestSchema,
   stateResponseSchema
-} from './lifecycle'
-import { classifyRequestSchema, classifyResponseSchema } from './classification'
+} from './lifecycle.ts'
+import { classifyRequestSchema, classifyResponseSchema } from './classification.ts'
 
 export const requestSchema = z.union([
   heartbeatRequestSchema,

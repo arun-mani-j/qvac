@@ -1,10 +1,10 @@
-import type { UnloadModelRequest, UnloadModelResponse } from '../schemas'
-import { getModelEntry, unregisterModel, getRegistryStats } from '../runtime/model-registry'
-import { getRPC } from './delegate-client'
-import { send } from './delegate-transport'
-import { hasActiveProviders } from './swarm'
-import { ModelIsDelegatedError } from '../errors'
-import { getEngineLogger } from '../logging'
+import type { UnloadModelRequest, UnloadModelResponse } from '../schemas/index.ts'
+import { getModelEntry, unregisterModel, getRegistryStats } from '../runtime/model-registry.ts'
+import { getRPC } from './delegate-client.ts'
+import { send } from './delegate-transport.ts'
+import { hasActiveProviders } from './swarm.ts'
+import { ModelIsDelegatedError } from '../errors/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
 
 const logger = getEngineLogger()
 

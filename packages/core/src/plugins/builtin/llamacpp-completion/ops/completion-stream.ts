@@ -8,34 +8,34 @@ import type {
   Tool,
   ToolCall,
   ToolDialect
-} from '../../../../schemas'
-import { TOOLS_MODE } from '../../../../schemas/tools'
-import { logCacheDisabled, logCacheInit, logCacheSave, logMessagesToAddon } from './cache-logger'
-import { extractSystemPrompt, getCurrentCacheInfo } from '../../../ops/kv-cache-utils'
-import { getModel, getModelConfig, type AnyModel } from '../../../../runtime/model-registry'
-import { decideCachedHistorySlice } from './kv-cache-state'
+} from '../../../../schemas/index.ts'
+import { TOOLS_MODE } from '../../../../schemas/tools.ts'
+import { logCacheDisabled, logCacheInit, logCacheSave, logMessagesToAddon } from './cache-logger.ts'
+import { extractSystemPrompt, getCurrentCacheInfo } from '../../../ops/kv-cache-utils.ts'
+import { getModel, getModelConfig, type AnyModel } from '../../../../runtime/model-registry.ts'
+import { decideCachedHistorySlice } from './kv-cache-state.ts'
 import {
   createKvCacheSession,
   generateConfigHash,
   type KvCacheSession,
   type TurnHandle
-} from './kv-cache-session'
-import type { DisposableScope } from '../../../../runtime/disposable-scope'
+} from './kv-cache-session.ts'
+import type { DisposableScope } from '../../../../runtime/disposable-scope.ts'
 import {
   appendToolsToHistory,
   detectToolDialect,
   prependToolsToHistory
-} from '../../../../utils/tool-integration'
-import { parseToolCalls } from '../../../../utils/tools'
-import { getResponseFormatJsonSchema } from '../../../../utils/response-format'
-import { buildAutoCacheSaveHistory, type CacheMessage } from '../../../../utils'
-import { getEngineLogger } from '../../../../logging'
-import type { Logger } from '../../../../logging/types'
-import { AttachmentNotFoundError } from '../../../../errors'
-import { nowMs } from '../../../../profiling'
-import { buildStreamResult } from '../../../../profiling/model-execution'
-import type { LlmStats } from '../../../../utils/addon-responses'
-import { normalizeCompletionStats } from './completion-stats'
+} from '../../../../utils/tool-integration.ts'
+import { parseToolCalls } from '../../../../utils/tools/index.ts'
+import { getResponseFormatJsonSchema } from '../../../../utils/response-format.ts'
+import { buildAutoCacheSaveHistory, type CacheMessage } from '../../../../utils/index.ts'
+import { getEngineLogger } from '../../../../logging/index.ts'
+import type { Logger } from '../../../../logging/types.ts'
+import { AttachmentNotFoundError } from '../../../../errors/index.ts'
+import { nowMs } from '../../../../profiling/index.ts'
+import { buildStreamResult } from '../../../../profiling/model-execution.ts'
+import type { LlmStats } from '../../../../utils/addon-responses.ts'
+import { normalizeCompletionStats } from './completion-stats.ts'
 import fs from 'bare-fs'
 
 const logger = getEngineLogger()

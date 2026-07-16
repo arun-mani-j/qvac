@@ -13,12 +13,12 @@ import {
   type TranscribeStreamConversationSession,
   type TranscribeStreamEvent,
   type TranscribeStreamResponse
-} from '../schemas'
-import { stream, duplex, type DuplexReadable } from '../dispatch'
-import { getAppLogger } from '../logging'
-import { TranscriptionFailedError } from '../errors'
-import { decoratePromise } from '../utils/decorate-promise'
-import { generateRequestId } from '../runtime/request-id'
+} from '../schemas/index.ts'
+import { stream, duplex, type DuplexReadable } from '../dispatch.ts'
+import { getAppLogger } from '../logging/index.ts'
+import { TranscriptionFailedError } from '../errors/index.ts'
+import { decoratePromise } from '../utils/decorate-promise.ts'
+import { generateRequestId } from '../runtime/request-id.ts'
 
 const logger = getAppLogger()
 

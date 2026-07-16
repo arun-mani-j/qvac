@@ -1,13 +1,13 @@
 import { QVACRegistryClient } from '@qvac/registry-client'
-import { getCacheDir } from '../utils/cache/paths'
+import { getCacheDir } from '../utils/cache/paths.ts'
 import {
   registerSwarm,
   unregisterSwarm,
   registerCorestore,
   unregisterCorestore
-} from './runtime-lifecycle'
-import { getEngineLogger } from '../logging'
-import { DEFAULT_REGISTRY_CORE_KEY } from '../constants'
+} from './runtime-lifecycle.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import { DEFAULT_REGISTRY_CORE_KEY } from '../constants/index.ts'
 
 const logger = getEngineLogger()
 

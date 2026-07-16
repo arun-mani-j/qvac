@@ -1,19 +1,19 @@
-import { getSwarm } from './swarm'
-import { getConfig } from '../runtime/state'
-import { ensureDhtBootstrapped, describeConnectFailure } from './delegate-connect-diagnostics'
+import { getSwarm } from './swarm.ts'
+import { getConfig } from '../runtime/state.ts'
+import { ensureDhtBootstrapped, describeConnectFailure } from './delegate-connect-diagnostics.ts'
 import RPC from 'bare-rpc'
 import type { Connection } from 'hyperswarm'
 import type { Duplex } from 'bare-stream'
-import { withTimeout } from '../utils/withTimeout'
-import type { RPCOptions } from '../schemas'
-import { DelegateConnectionFailedError } from '../errors'
-import { getEngineLogger } from '../logging'
-import { nowMs } from '../profiling'
+import { withTimeout } from '../utils/withTimeout.ts'
+import type { RPCOptions } from '../schemas/index.ts'
+import { DelegateConnectionFailedError } from '../errors/index.ts'
+import { getEngineLogger } from '../logging/index.ts'
+import { nowMs } from '../profiling/index.ts'
 import {
   cacheDelegationConnectionTime,
   clearPeerConnectionTracking
-} from '../profiling/delegation-profiler'
-import { getNextCommandId } from './rpc-utils'
+} from '../profiling/delegation-profiler.ts'
+import { getNextCommandId } from './rpc-utils.ts'
 import { Buffer } from 'bare-buffer'
 
 const logger = getEngineLogger()

@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { modelSrcInputSchema } from './model-src-utils'
-import { TOOLS_MODE } from './tools'
+import { modelSrcInputSchema } from './model-src-utils.ts'
+import { TOOLS_MODE } from './tools.ts'
 
 /**
  * Upper bound for `reasoning_budget`. Mirrors the llm-llamacpp addon, which
