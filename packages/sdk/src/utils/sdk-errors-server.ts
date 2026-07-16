@@ -1,5 +1,7 @@
-import { addCodes, type ErrorCodesMap } from '@qvac/error'
-import { ERROR_CODES, RAG_ERROR_CODES } from '@qvac/core/surface'
+import { addCodes, isCodeRegistered, type ErrorCodesMap } from '@qvac/error'
+// Load core's registration first, then add only codes not already present, so a
+// shared @qvac/error instance (packed consumers, the Bare worker) is not double-registered.
+import '@qvac/core/surface'
 
 // Server-side error codes (52,001-54,000 range for this SDK)
 export const SDK_SERVER_ERROR_CODES = {
@@ -588,18 +590,9 @@ const serverErrorDefinitions: ErrorCodesMap = {
   }
 }
 
-// Core registers the engine codes it owns into the shared @qvac/error registry
-// when its surface loads. Register only the SDK-exclusive codes here so the two
-// registrations do not collide. The numeric map above still exposes the full set
-// to consumers; this only governs which message definitions the SDK contributes.
-const coreOwnedCodes = new Set<number>([
-  ...Object.values(ERROR_CODES),
-  ...Object.values(RAG_ERROR_CODES)
-])
-const sdkOwnedDefinitions: ErrorCodesMap = Object.fromEntries(
-  Object.entries(serverErrorDefinitions).filter(([code]) => !coreOwnedCodes.has(Number(code)))
+const serverDefinitionsToRegister: ErrorCodesMap = Object.fromEntries(
+  Object.entries(serverErrorDefinitions).filter(([code]) => !isCodeRegistered(Number(code)))
 )
-
-addCodes(sdkOwnedDefinitions, { name: 'qvac-sdk-server', version: '1.1.0' })
+addCodes(serverDefinitionsToRegister, { name: 'qvac-sdk-server', version: '1.1.0' })
 
 export { serverErrorDefinitions as SDK_SERVER_ERROR_DEFINITIONS }
