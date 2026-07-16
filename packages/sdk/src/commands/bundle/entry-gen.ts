@@ -36,7 +36,7 @@ ${pluginsList}
  */
 
 import { initializeWorkerCore, ensureRPCSetup } from "${resolveImport(`${sdkName}/worker-core`)}";
-import { registerPlugin } from "${resolveImport(`${sdkName}/plugins`)}";
+import { registerPlugin } from "${resolveImport('@qvac/core/plugins')}";
 import { getServerLogger } from "${resolveImport(`${sdkName}/logging`)}";
 
 ${importsStr}
