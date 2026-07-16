@@ -69,39 +69,51 @@
       "require": "./dist/src/worker/index.js"
     },
     "./llamacpp-completion/plugin": {
+      "types": "./dist/src/worker/plugins/llamacpp-completion.d.ts",
       "import": "./dist/src/worker/plugins/llamacpp-completion.js"
     },
     "./llamacpp-embedding/plugin": {
+      "types": "./dist/src/worker/plugins/llamacpp-embedding.d.ts",
       "import": "./dist/src/worker/plugins/llamacpp-embedding.js"
     },
     "./whispercpp-transcription/plugin": {
+      "types": "./dist/src/worker/plugins/whispercpp-transcription.d.ts",
       "import": "./dist/src/worker/plugins/whispercpp-transcription.js"
     },
     "./bci-whispercpp-transcription/plugin": {
+      "types": "./dist/src/worker/plugins/bci-whispercpp-transcription.d.ts",
       "import": "./dist/src/worker/plugins/bci-whispercpp-transcription.js"
     },
     "./parakeet-transcription/plugin": {
+      "types": "./dist/src/worker/plugins/parakeet-transcription.d.ts",
       "import": "./dist/src/worker/plugins/parakeet-transcription.js"
     },
     "./nmtcpp-translation/plugin": {
+      "types": "./dist/src/worker/plugins/nmtcpp-translation.d.ts",
       "import": "./dist/src/worker/plugins/nmtcpp-translation.js"
     },
     "./tts-ggml/plugin": {
+      "types": "./dist/src/worker/plugins/tts-ggml.d.ts",
       "import": "./dist/src/worker/plugins/tts-ggml.js"
     },
     "./onnx-tts/plugin": {
+      "types": "./dist/src/worker/plugins/tts-ggml.d.ts",
       "import": "./dist/src/worker/plugins/tts-ggml.js"
     },
     "./ggml-ocr/plugin": {
+      "types": "./dist/src/worker/plugins/ggml-ocr.d.ts",
       "import": "./dist/src/worker/plugins/ggml-ocr.js"
     },
     "./sdcpp-generation/plugin": {
+      "types": "./dist/src/worker/plugins/sdcpp-generation.d.ts",
       "import": "./dist/src/worker/plugins/sdcpp-generation.js"
     },
     "./ggml-vla/plugin": {
+      "types": "./dist/src/worker/plugins/ggml-vla.d.ts",
       "import": "./dist/src/worker/plugins/ggml-vla.js"
     },
     "./ggml-classification/plugin": {
+      "types": "./dist/src/worker/plugins/ggml-classification.d.ts",
       "import": "./dist/src/worker/plugins/ggml-classification.js"
     },
     "./plugin-utils": {
@@ -172,9 +184,7 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "postcompile:aliases": "node ./scripts/resolve-aliases.mjs",
-    "bundle:surface": "node ./scripts/bundle-core-surface.mjs",
-    "build:worker": "tsc --project tsconfig.worker.json && npm run postcompile:aliases",
-    "build": "rm -rf dist && npm run lint && tsc --project tsconfig.json && npm run bundle:surface && npm run postcompile:aliases && npm run build:worker",
+    "build": "rm -rf dist && npm run lint && tsc --project tsconfig.json && npm run postcompile:aliases",
     "build:pack": "bun run build && bun pm pack --destination dist/",
     "watch": "nodemon --watch src --ext ts --exec 'bun run build'",
     "bare:ensureprebuilds:llamacpp": "cp -r node_modules/@qvac/llm-llamacpp/prebuilds/android-arm64 node_modules/@qvac/llm-llamacpp/prebuilds/android-ia32 && cp -r node_modules/@qvac/llm-llamacpp/prebuilds/android-arm64 node_modules/@qvac/llm-llamacpp/prebuilds/android-arm && cp -r node_modules/@qvac/llm-llamacpp/prebuilds/android-arm64 node_modules/@qvac/llm-llamacpp/prebuilds/android-x64",
