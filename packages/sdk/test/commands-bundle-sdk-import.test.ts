@@ -87,11 +87,11 @@ describe('generateWorkerEntry', () => {
   const tag = (specifier: string): string =>
     specifier.startsWith('@qvac/sdk') ? `RESOLVED:${specifier}` : specifier
 
-  it('routes SDK core imports through the resolver', () => {
+  it('routes SDK imports through the resolver and registers plugins into @qvac/core', () => {
     const entry = generateWorkerEntry([], '@qvac/sdk', tag)
     assert.match(entry, /from "RESOLVED:@qvac\/sdk\/worker-core"/)
-    assert.match(entry, /from "RESOLVED:@qvac\/sdk\/plugins"/)
     assert.match(entry, /from "RESOLVED:@qvac\/sdk\/logging"/)
+    assert.match(entry, /from "@qvac\/core\/plugins"/)
   })
 
   it('routes builtin plugin imports through the resolver and keeps custom plugins', () => {
