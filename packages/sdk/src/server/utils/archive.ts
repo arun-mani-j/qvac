@@ -22,7 +22,7 @@ import {
   SUPPORTED_ARCHIVE_EXTENSIONS,
   filenameToArchiveTypeSchema,
   type ArchiveType
-} from '@/schemas/archive'
+} from '@qvac/inference/surface'
 
 const logger = getServerLogger()
 

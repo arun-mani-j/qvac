@@ -5,7 +5,7 @@ import type {
   NormalizerConfig,
   StopReason,
   ToolCall
-} from '@/schemas'
+} from '@qvac/inference/surface'
 import { parseToolCalls } from '@/server/utils/tools'
 
 type NormalizerState = 'content' | 'thinkingFraming' | 'toolFraming' | 'contentFraming'

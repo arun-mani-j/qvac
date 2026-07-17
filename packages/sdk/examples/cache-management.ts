@@ -1,6 +1,6 @@
-import { WHISPER_TINY } from '@/models/registry'
-import type { ModelInfo } from '@/schemas'
-import { downloadAsset, getModelInfo, loadModel, unloadModel } from '..'
+import { WHISPER_TINY } from '@qvac/inference/surface'
+import type { ModelInfo } from '@qvac/inference/surface'
+import { downloadAsset, getModelInfo, loadModel, unloadModel } from '@qvac/sdk'
 
 const printModelStatus = (info: ModelInfo, label: string) => {
   console.log(`\n▸ ${label}`)
