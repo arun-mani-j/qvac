@@ -3,9 +3,9 @@ import {
   loadModelOptionsToRequestSchema,
   downloadAssetOptionsToRequestSchema,
   bciTranscribeStreamRequestSchema
-} from '@/schemas'
-import { ragRequestSchema } from '@/schemas/rag'
-import { ModelType } from '@/schemas/model-types'
+} from '@qvac/inference/surface'
+import { ragRequestSchema } from '@qvac/inference/surface'
+import { ModelType } from '@qvac/inference/surface'
 
 // -----------------------------------------------------------------------------
 // requestId wire-shape round-trip — schema half.
