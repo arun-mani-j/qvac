@@ -171,6 +171,9 @@ function fixDirectoryImports(code, filePath, cfg) {
   updated = updated.replace(
     /(from\s*["'])(@\w+\/[^\/"']+\/[^"']*?)(?<!\.js|\.d\.ts)(["'])/g,
     (match, prefix, importPath, suffix) => {
+      // @qvac/inference resolves its subpaths through an `exports` map; appending
+      // `.js` to an export key (e.g. `@qvac/inference/surface`) would break it.
+      if (importPath.startsWith('@qvac/inference/')) return match
       // Add .js extension to external package sub-paths
       const extension = targetExtension === '.d.ts' ? '' : '.js'
       return `${prefix}${importPath}${extension}${suffix}`
@@ -206,6 +209,9 @@ function fixDirectoryImports(code, filePath, cfg) {
   updated = updated.replace(
     /(import\s*\(\s*["'])(@\w+\/[^\/"']+\/[^"']*?)(?<!\.js|\.d\.ts)(["']\s*\))/g,
     (match, prefix, importPath, suffix) => {
+      // @qvac/inference resolves its subpaths through an `exports` map; appending
+      // `.js` to an export key (e.g. `@qvac/inference/surface`) would break it.
+      if (importPath.startsWith('@qvac/inference/')) return match
       // Add .js extension to external package sub-paths
       const extension = targetExtension === '.d.ts' ? '' : '.js'
       return `${prefix}${importPath}${extension}${suffix}`
