@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { plugins } from '@/client/plugins-factory'
 import { clearPlugins, getAllPlugins, hasPlugin } from '@/server/plugins'
 import { ModelType } from '@qvac/inference/surface'
-import { PluginDefinitionInvalidError } from '@/utils/errors-server'
+import { PluginDefinitionInvalidError } from '@qvac/inference/surface'
 import type { QvacPlugin } from '@qvac/inference/surface'
 
 function makeValidPlugin(modelType: string): QvacPlugin {
