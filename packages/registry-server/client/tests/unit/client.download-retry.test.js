@@ -18,10 +18,18 @@ function makeLogger(t) {
   }
 
   return {
-    info(msg, data) { emit('info', msg, data) },
-    debug(msg, data) { emit('debug', msg, data) },
-    warn(msg, data) { emit('warn', msg, data) },
-    error(msg, data) { emit('error', msg, data) }
+    info(msg, data) {
+      emit('info', msg, data)
+    },
+    debug(msg, data) {
+      emit('debug', msg, data)
+    },
+    warn(msg, data) {
+      emit('warn', msg, data)
+    },
+    error(msg, data) {
+      emit('error', msg, data)
+    }
   }
 }
 
@@ -62,7 +70,9 @@ function makeClient(t) {
   // lunte-disable-next-line require-await
   const blobs = {
     async close() {},
-    createReadStream() { return client._stream }
+    createReadStream() {
+      return client._stream
+    }
   }
   client._core = core
   client._blobs = blobs
@@ -102,11 +112,13 @@ function makeClient(t) {
 function fakeStream() {
   const handlers = {}
   return {
-    once(event, fn) { (handlers[event] = handlers[event] || []).push(fn) },
+    once(event, fn) {
+      ;(handlers[event] = handlers[event] || []).push(fn)
+    },
     emit(event) {
       const fns = handlers[event] || []
       handlers[event] = []
-      return Promise.all(fns.map(fn => fn()))
+      return Promise.all(fns.map((fn) => fn()))
     }
   }
 }
@@ -309,14 +321,14 @@ test('downloadModel aborts the reconnect wait when the signal is cancelled', asy
   t.is(attempt, 1, 'no second attempt started after the cancel')
 })
 
-test('downloadModel clears cached blocks when the download fails', async t => {
+test('downloadModel clears cached blocks when the download fails', async (t) => {
   const dir = await tmp(t)
   const outputFile = path.join(dir, 'model.gguf')
 
   const client = makeClient(t)
   const clears = []
   client._core.download = () => ({
-    destroy () {
+    destroy() {
       client._events.push('destroy')
       t.comment('step: rangeDownload.destroy() called from the catch path')
     }
@@ -353,11 +365,11 @@ test('downloadModel clears cached blocks when the download fails', async t => {
   )
 })
 
-test('downloadModel clears cached blocks when the returned stream is destroyed', async t => {
+test('downloadModel clears cached blocks when the returned stream is destroyed', async (t) => {
   const client = makeClient(t)
   const clears = []
   client._core.download = () => ({
-    destroy () {
+    destroy() {
       client._events.push('destroy')
       t.comment('step: rangeDownload.destroy() called from the stream release')
     }
@@ -388,7 +400,7 @@ test('downloadModel clears cached blocks when the returned stream is destroyed',
   )
 })
 
-test('downloadModel releases the stream download exactly once', async t => {
+test('downloadModel releases the stream download exactly once', async (t) => {
   const client = makeClient(t)
   let clears = 0
   client._clearBlobBlocks = async () => {
@@ -406,7 +418,7 @@ test('downloadModel releases the stream download exactly once', async t => {
   t.is(clears, 1, 'the end-then-close sequence releases only once')
 })
 
-test('downloadBlob clears cached blocks when the returned stream is destroyed', async t => {
+test('downloadBlob clears cached blocks when the returned stream is destroyed', async (t) => {
   const client = makeClient(t)
   client.ready = async () => {}
   const clears = []
@@ -429,7 +441,7 @@ test('downloadBlob clears cached blocks when the returned stream is destroyed', 
   t.alike(clears[0], { start: 3, end: 10 }, 'cleared the blob block range')
 })
 
-test('downloadBlob clears cached blocks when the download fails', async t => {
+test('downloadBlob clears cached blocks when the download fails', async (t) => {
   const dir = await tmp(t)
   const outputFile = path.join(dir, 'blob.bin')
 
@@ -437,7 +449,7 @@ test('downloadBlob clears cached blocks when the download fails', async t => {
   client.ready = async () => {}
   const clears = []
   client._core.download = () => ({
-    destroy () {
+    destroy() {
       client._events.push('destroy')
       t.comment('step: rangeDownload.destroy() called from the catch path')
     }
@@ -474,7 +486,7 @@ test('downloadBlob clears cached blocks when the download fails', async t => {
   )
 })
 
-test('downloadModel releases nothing when it fails before the core is opened', async t => {
+test('downloadModel releases nothing when it fails before the core is opened', async (t) => {
   const client = makeClient(t)
   let clears = 0
   client._clearBlobBlocks = async () => {
@@ -495,7 +507,7 @@ test('downloadModel releases nothing when it fails before the core is opened', a
   t.is(clears, 0, 'nothing cleared when no core or block range exists yet')
 })
 
-test('downloadModel closes the core without clearing when the range is unknown', async t => {
+test('downloadModel closes the core without clearing when the range is unknown', async (t) => {
   const client = makeClient(t)
   let clears = 0
   let closed = 0
