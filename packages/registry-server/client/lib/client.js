@@ -518,7 +518,7 @@ class QVACRegistryClient extends ReadyResource {
     // Stop replication before clearing to prevent blocks from being refetched.
     if (rangeDownload) rangeDownload.destroy()
 
-    if (core && blockStart != null) {
+    if (core && blockStart !== undefined) {
       await this._clearBlobBlocks(core, blockStart, blockEnd)
     }
     if (blobs) {
